@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portfolio Website</title>
+    <title>Exercise 2</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -13,7 +13,8 @@
     <style>
         .bigger {
             font-weight: bold;
-            font-size: larger;
+            font-size: 70px;
+            color: white;
         }
     </style>
 </head>
@@ -25,8 +26,8 @@
     $b = rand(10, 100);
     ?>
 
-    <div class="container text-center mt-5">
-        <div class="row justify-content-center p-5 text-white">
+    <div class="container text-center p-5 ">
+        <div class="row justify-content-center text-black">
             <div class="col-4 bg-success">
                 <h1>
                     <?php
