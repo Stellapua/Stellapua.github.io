@@ -17,14 +17,11 @@
         <select class="form-select form-select-lg mb-3 bg-info " aria-label=".form-select-lg example">
             <option selected>DAY</option>
 
-            <?php
-            for ($d = 1; $d <= 31; $d++) {
-            ?>
-                <option value="<?php echo $d; ?>"><?php echo $d; ?>
+            <?php for ($d = 1; $d <= 31; $d++) { ?>
 
-                <?php
-            }
-                ?>
+                <option value="<?php echo $d; ?>"><?php echo $d; ?></option>
+
+            <?php } ?>
 
         </select>
     </div>
@@ -32,28 +29,26 @@
     <div class="col-2 ">
         <select class="form-select form-select-lg mb-3 bg-warning " aria-label=".form-select-lg example">
             <option selected>MONTH</option>
-            <?php
-            for ($m = 1; $m <= 12; $m++) {
-            ?>
-                <option value="<?php echo $m; ?>"><?php echo $m; ?>
 
-                <?php
-            }
-                ?>
+            <?php for ($m = 1; $m <= 12; $m++) { ?>
+
+                <option value="<?php echo $m; ?>"><?php echo $m; ?></option>
+
+            <?php } ?>
+
         </select>
     </div>
 
     <div class="col-2 ">
         <select class="form-select form-select-lg mb-3 bg-danger " aria-label=".form-select-lg example">
             <option selected>YEAR</option>
-            <?php
-            for ($y = 1990; $y <= 2022; $d++) {
-            ?>
-                <option value="<?php echo $y; ?>"><?php echo $y; ?>
 
-                <?php
-            }
-                ?>
+            <?php for ($y = 1990; $y <= 2022; $y++) { ?>
+
+                <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
+
+            <?php } ?>
+
         </select>
     </div>
 </div>

@@ -15,54 +15,49 @@
 <body>
 
     <?php
-
-    for ($d = 1; $d <= 31; $d++) {
-    }
-
     $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-
-    for ($y = 1990; $y <= 2022; $y++) {
-    }
-
     ?>
 
     <div class="row justify-content-center p-5">
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-info " aria-label=".form-select-lg example">
                 <option selected>DAY</option>
-                <option value="1"><?php  ?></option>
+
+                <?php for ($d = 1; $d <= 31; $d++) { ?>
+
+                    <option value="<?php echo $d; ?>"><?php echo $d; ?></option>
+
+                <?php } ?>
 
             </select>
         </div>
 
-
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-warning " aria-label=".form-select-lg example">
                 <option selected>MONTH</option>
-                <option value="1"><?php echo $months[0]; ?></option>
-                <option value="1"><?php echo $months[1]; ?></option>
-                <option value="1"><?php echo $months[2]; ?></option>
-                <option value="1"><?php echo $months[3]; ?></option>
-                <option value="1"><?php echo $months[4]; ?></option>
-                <option value="1"><?php echo $months[5]; ?></option>
-                <option value="1"><?php echo $months[6]; ?></option>
-                <option value="1"><?php echo $months[7]; ?></option>
-                <option value="1"><?php echo $months[8]; ?></option>
-                <option value="1"><?php echo $months[9]; ?></option>
-                <option value="1"><?php echo $months[10]; ?></option>
-                <option value="1"><?php echo $months[11]; ?></option>
+
+                <?php for ($m = 1; $m <= 12; $m++) { ?>
+
+                    <option value="<?php echo $m; ?>"><?php echo $m; ?></option>
+
+                <?php } ?>
+
             </select>
         </div>
 
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-danger " aria-label=".form-select-lg example">
                 <option selected>YEAR</option>
-                <option value="1"><?php  ?></option>
+
+                <?php for ($y = 1990; $y <= 2022; $y++) { ?>
+
+                    <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
+
+                <?php } ?>
 
             </select>
         </div>
     </div>
-
 
 </body>
 
