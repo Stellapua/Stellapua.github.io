@@ -16,6 +16,7 @@
 
     <?php
     $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+    $length = count($months);
     ?>
 
     <div class="row justify-content-center p-5">
@@ -36,9 +37,9 @@
             <select class="form-select form-select-lg mb-3 bg-warning " aria-label=".form-select-lg example">
                 <option selected>MONTH</option>
 
-                <?php for ($m = 1; $m <= 12; $m++) { ?>
+                <?php for ($m = 0; $m < $length; $m++) { ?>
 
-                    <option value="<?php echo $m; ?>"><?php echo $m; ?></option>
+                    <option value="<?php echo $m; ?>"><?php echo $months[$m]; ?></option>
 
                 <?php } ?>
 
