@@ -11,9 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
+        p {
+            font-size: 50px;
+        }
+
         .bigger {
             font-weight: bold;
-            font-size: 70px;
+            font-size: 60px;
             color: white;
         }
     </style>
@@ -28,8 +32,8 @@
 
     <div class="container text-center p-5 ">
         <div class="row justify-content-center text-black">
-            <div class="col-4 bg-success">
-                <h1>
+            <div class="col-2 bg-success">
+                <p>
                     <?php
                     if ($a > $b) {
                         echo "<span class=\"bigger\">";
@@ -39,11 +43,11 @@
                         echo $a;
                     }
                     ?>
-                </h1>
+                </p>
 
             </div>
-            <div class="col-4 bg-primary">
-                <h1>
+            <div class="col-2 bg-primary">
+                <p>
                     <?php
                     if ($b > $a) {
                         echo "<span class=\"bigger\">";
@@ -53,7 +57,7 @@
                         echo $b;
                     }
                     ?>
-                </h1>
+                </p>
 
             </div>
         </div>

@@ -14,11 +14,32 @@
 
 <body>
 
-    <?php
-    for ($x = 1; $x <= 100; $x++) {
-        echo "$x+";
-    }
-    ?>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center text-black mt-5">
+            <div class="col-11 bg-secondary">
+
+                <?php
+                $sum = 0;
+
+                for ($x = 1; $x <= 100; $x++) {
+                    $sum += $x;
+
+                    if ($x % 2 == 0) {
+                        echo "<strong>" . $x . "</strong>";
+                        if ($x < 100) {
+                            echo "+";
+                        }
+                    } else {
+                        echo $x, "+";
+                    }
+                }
+
+                echo "=" . $sum;
+                ?>
+            </div>
+        </div>
+    </div>
 
 </body>
 
