@@ -12,57 +12,51 @@
 
 </head>
 
-<body>
+<div class="row justify-content-center p-5">
+    <div class="col-2 ">
+        <select class="form-select form-select-lg mb-3 bg-info " aria-label=".form-select-lg example">
+            <option selected>DAY</option>
 
-    <?php
-    $a = 1;
-    $b = 31;
+            <?php
+            for ($d = 1; $d <= 31; $d++) {
+            ?>
+                <option value="<?php echo $d; ?>"><?php echo $d; ?>
 
-    for ($d = $a; $d <= $b; $d++) {
-    }
+                <?php
+            }
+                ?>
 
-    $c = 12;
-
-    for ($m = $a; $m <= $c; $m++) {
-    }
-
-    $d = 1990;
-    $e = 2022;
-
-    for ($y = $d; $y <= $e; $y++) {
-    }
-    ?>
-
-    <div class="row justify-content-center p-5">
-        <div class="col-2 btn-group">
-            <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                DAY
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"> <?php echo implode(range($a, $b)); ?> </a></li>
-            </ul>
-        </div>
-
-        <div class="col-2 btn-group">
-            <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                MONTH
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"> <?php echo implode(range($a, $c)); ?> </a></li>
-            </ul>
-        </div>
-
-        <div class="col-2 btn-group">
-            <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                YEAR
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"> <?php echo implode(range($d, $e)); ?> </a></li>
-            </ul>
-        </div>
+        </select>
     </div>
 
+    <div class="col-2 ">
+        <select class="form-select form-select-lg mb-3 bg-warning " aria-label=".form-select-lg example">
+            <option selected>MONTH</option>
+            <?php
+            for ($m = 1; $m <= 12; $m++) {
+            ?>
+                <option value="<?php echo $m; ?>"><?php echo $m; ?>
 
+                <?php
+            }
+                ?>
+        </select>
+    </div>
+
+    <div class="col-2 ">
+        <select class="form-select form-select-lg mb-3 bg-danger " aria-label=".form-select-lg example">
+            <option selected>YEAR</option>
+            <?php
+            for ($y = 1990; $y <= 2022; $d++) {
+            ?>
+                <option value="<?php echo $y; ?>"><?php echo $y; ?>
+
+                <?php
+            }
+                ?>
+        </select>
+    </div>
+</div>
 
 </body>
 
