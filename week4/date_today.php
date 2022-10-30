@@ -15,6 +15,7 @@
 <body>
 
     <?php
+    $date = new DateTime();
     $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
     $length = count($months);
     ?>
@@ -22,14 +23,12 @@
     <div class="row justify-content-center p-5">
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-info " aria-label=".form-select-lg example">
-                <option selected>
-                    <?php echo date("d"); ?>
-                </option>
+                <option selected>Day</option>
 
-                <?php for ($d = 1; $d <= 31; $d++) { ?>
-
-                    <option value="<?php echo $d; ?>"><?php echo $d; ?></option>
-
+                <?php for ($d = 1; $d <= 31; $d++) {
+                    $default_day = ($d == $date->format('d')) ? 'selected' : '';
+                ?>
+                    <option <?php echo $default_day; ?> value="<?php echo $d; ?>"><?php echo $d; ?></option>
                 <?php } ?>
 
             </select>
@@ -37,13 +36,12 @@
 
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-warning " aria-label=".form-select-lg example">
-                <option selected>
-                    <?php echo date("F"); ?>
-                </option>
+                <option selected>MONTH</option>
 
-                <?php for ($m = 0; $m < $length; $m++) { ?>
-
-                    <option value="<?php echo $months[$m]; ?>"><?php echo $months[$m]; ?></option>
+                <?php for ($m = 0; $m < $length; $m++) {
+                    $default_day = ($m == $date->format('F')) ? 'selected' : '';
+                ?>
+                    <option <?php echo $default_day; ?> value="<?php echo $months[$m]; ?>"><?php echo $months[$m]; ?></option>
 
                 <?php } ?>
 
@@ -52,13 +50,13 @@
 
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-danger " aria-label=".form-select-lg example">
-                <option selected>
-                    <?php echo date("Y"); ?>
-                </option>
+                <option selected>YEAR</option>
 
-                <?php for ($y = 1990; $y <= 2022; $y++) { ?>
+                <?php for ($y = 1990; $y <= 2022; $y++) {
+                    $default_day = ($y == $date->format('Y')) ? 'selected' : '';
+                ?>
 
-                    <option value="<?php echo $y; ?>"><?php echo $y; ?></option>
+                    <option <?php echo $default_day; ?> value="<?php echo $y; ?>"><?php echo $y; ?></option>
 
                 <?php } ?>
 
