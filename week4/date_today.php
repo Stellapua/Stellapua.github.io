@@ -22,7 +22,9 @@
     <div class="row justify-content-center p-5">
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-info " aria-label=".form-select-lg example">
-                <option selected>DAY</option>
+                <option selected>
+                    <?php echo date("d"); ?>
+                </option>
 
                 <?php for ($d = 1; $d <= 31; $d++) { ?>
 
@@ -35,7 +37,9 @@
 
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-warning " aria-label=".form-select-lg example">
-                <option selected>MONTH</option>
+                <option selected>
+                    <?php echo date("F"); ?>
+                </option>
 
                 <?php for ($m = 0; $m < $length; $m++) { ?>
 
@@ -48,7 +52,9 @@
 
         <div class="col-2 ">
             <select class="form-select form-select-lg mb-3 bg-danger " aria-label=".form-select-lg example">
-                <option selected>YEAR</option>
+                <option selected>
+                    <?php echo date("Y"); ?>
+                </option>
 
                 <?php for ($y = 1990; $y <= 2022; $y++) { ?>
 
