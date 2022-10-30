@@ -71,7 +71,7 @@
         } else if (($month == 8 and $date >= 23) or ($month == 9 and $date <= 22)) {
             echo "Vigro" . "<br>";
         ?>
-            <img src="Images/vigro.jpg" class="rounded " alt="img6">
+            <img src="Images/virgo.jpg" class="rounded " alt="img6">
         <?php
         } else if (($month == 9 and $date >= 23) or ($month == 10 and $date <= 22)) {
             echo "Libra" . "<br>";
