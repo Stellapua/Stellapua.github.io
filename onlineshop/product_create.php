@@ -11,14 +11,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>product create</title>
 
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
+
+    <nav class="navbar navbar-dark bg-success fixed-top ">
+        <div class="container-fluid">
+            <a class="navbar-brand " href="#">Online Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-success " tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Online Shop</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
+                        <li class="nav-item">
+                            <a class="nav-link " href="home.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="product_create.php">Create Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="contact_us.php">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <!-- container -->
-    <div class="container">
-        <div class="page-header">
+    <div class="container mt-5 p-5">
+        <div class="page-header text-center">
             <h1>Create Product</h1>
         </div>
 
@@ -26,17 +61,55 @@
         <!-- PHP insert code will be here -->
 
         <?php
+        $nameErr = $desErr = $priErr = $proErr = $manuErr = $exErr = "";
+
         if ($_POST) {
             // include database connection
             include 'config/database.php';
             try {
                 // posted values
-                $name = htmlspecialchars(strip_tags($_POST['name']));
-                $description = htmlspecialchars(strip_tags($_POST['description']));
-                $price = htmlspecialchars(strip_tags($_POST['price']));
-                $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
-                $manufacture_date = htmlspecialchars(strip_tags($_POST['manufacture_date']));
-                $expired_date = htmlspecialchars(strip_tags($_POST['expired_date']));
+                if (empty($_POST["name"])) {
+                    $nameErr = "Name is required *";
+                    $name = "";
+                } else {
+                    $name = htmlspecialchars(strip_tags($_POST['name']));
+                }
+                if (empty($_POST["description"])) {
+                    $desErr = "Description is required *";
+                    $description = "";
+                } else {
+                    $description = htmlspecialchars(strip_tags($_POST['description']));
+                }
+                if (empty($_POST["price"])) {
+                    $priErr = "Price is required *";
+                    $price = "";
+                } else {
+                    $price = htmlspecialchars(strip_tags($_POST['price']));
+                }
+                if (empty($_POST["promotion_price"])) {
+                    $proErr = "Promotion price is required *";
+                    $promotion_price = "";
+                } else {
+                    $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
+                    if (($_POST["promotion_price"]) > ($_POST['price'])) {
+                        $proErr = "Promotion price should be cheaper than original price *";
+                    }
+                }
+                if (empty($_POST["manufacture_date"])) {
+                    $manuErr = "Manufacture date is required *";
+                    $manufacture_date = "";
+                } else {
+                    $manufacture_date = htmlspecialchars(strip_tags($_POST['manufacture_date']));
+                }
+                if (empty($_POST["expired_date"])) {
+                    $exErr = "Expired date is required *";
+                    $expired_date = "";
+                } else {
+                    $expired_date = htmlspecialchars(strip_tags($_POST['expired_date']));
+                    if (($_POST["expired_date"]) < ($_POST['manufacture_date'])) {
+                        $exErr = "Expired date should be later than manufacture date *";
+                    }
+                }
                 // insert query
                 $query = "INSERT INTO products SET name=:name, description=:description, price=:price, created=:created, promotion_price=:promotion_price, manufacture_date=:manufacture_date, expired_date=:expired_date";
                 // prepare query for execution
@@ -70,32 +143,44 @@
             <table class='table table-hover table-responsive table-bordered'>
                 <tr>
                     <td>Name</td>
-                    <td><input type='text' name='name' class='form-control' /></td>
+                    <td><span class="error"><?php echo $nameErr; ?></span>
+                        <input type='text' name='name' class='form-control' />
+                    </td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td><textarea name='description' class='form-control'></textarea></td>
+                    <td><span class="error"><?php echo $desErr; ?></span>
+                        <textarea name='description' class='form-control'></textarea>
+                    </td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td><input type='text' name='price' class='form-control' /></td>
+                    <td><span class="error"><?php echo $priErr; ?></span>
+                        <input type='text' name='price' class='form-control' />
+                    </td>
                 </tr>
                 <tr>
                     <td>Promotion Price</td>
-                    <td><input type='text' name='promotion_price' class='form-control' /></td>
+                    <td><span class="error"><?php echo $proErr; ?></span>
+                        <input type='text' name='promotion_price' class='form-control' />
+                    </td>
                 </tr>
                 <tr>
                     <td>Manufacture Date</td>
-                    <td><input type='text' name='manufacture_date' class='form-control' /></td>
+                    <td><span class="error"><?php echo $manuErr; ?></span>
+                        <input type='text' name='manufacture_date' class='form-control' />
+                    </td>
                 </tr>
                 <tr>
                     <td>Expired Date</td>
-                    <td><input type='text' name='expired_date' class='form-control' /></td>
+                    <td><span class="error"><?php echo $exErr; ?></span>
+                        <input type='text' name='expired_date' class='form-control' />
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <input type='submit' value='Save' class='btn btn-primary' />
+                        <input type='submit' value='Save' class='btn btn-success' />
                         <a href='index.php' class='btn btn-danger'>Back to read products</a>
                     </td>
                 </tr>
@@ -105,6 +190,11 @@
 
     </div>
     <!-- end .container -->
+
+    <div class="container-fluid p-1 pt-3 bg-success text-white text-center">
+        <p>Copyrights &copy; 2022 Online Shop. All rights reserved.</p>
+    </div>
+
 </body>
 
 <grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
