@@ -9,7 +9,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>product create</title>
+    <title>create customer</title>
 
     <style>
         .error {
@@ -40,13 +40,13 @@
                             <a class="nav-link " href="home.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="product_create.php">Create Product</a>
+                            <a class="nav-link " href="product_create.php">Create Product</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="product_read.php">Read product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href="create-customer.php">Create Customer</a>
+                            <a class="nav-link active" aria-current="page" href="create_customer.php">Create Customer</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="customer_read.php">Read customer</a>
@@ -63,81 +63,79 @@
     <!-- container -->
     <div class="container mt-5 p-5">
         <div class="page-header text-center">
-            <h1>Create Product</h1>
+            <h1>Create Customer</h1>
         </div>
 
         <!-- html form to create product will be here -->
         <!-- PHP insert code will be here -->
 
         <?php
-        $nameErr = $desErr = $priErr = $proErr = $manuErr = $exErr = "";
+        $useErr = $pasErr = $firErr = $lasErr = $genErr = $dateErr = "";
         $flag = false;
 
         if ($_POST) {
             // include database connection
             include 'config/database.php';
             try {
+
+                $min = 123456;
+
                 // posted values
-                if (empty($_POST["name"])) {
-                    $nameErr = "Name is required *";
+                if (empty($_POST["username"])) {
+                    $useErr = "Username is required *";
                     $flag = true;
                 } else {
-                    $name = htmlspecialchars(strip_tags($_POST['name']));
-                }
-                if (empty($_POST["description"])) {
-                    $desErr = "Description is required *";
-                    $flag = true;
-                } else {
-                    $description = htmlspecialchars(strip_tags($_POST['description']));
-                }
-                if (empty($_POST["price"])) {
-                    $priErr = "Price is required *";
-                    $flag = true;
-                } else {
-                    $price = htmlspecialchars(strip_tags($_POST['price']));
-                }
-                if (empty($_POST["promotion_price"])) {
-                    $proErr = "Promotion price is required *";
-                    $flag = true;
-                } else {
-                    $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
-                    if (($_POST["promotion_price"]) > ($_POST['price'])) {
-                        $proErr = "Promotion price should be cheaper than original price *";
-                        $flag = true;
+                    $username = htmlspecialchars(strip_tags($_POST['username']));
+                    if (strlen($_POST["username"]) < (strlen($min))) {
+                        $useErr = "Username is too short *";
                     }
                 }
-                if (empty($_POST["manufacture_date"])) {
-                    $manuErr = "Manufacture date is required *";
+                if (empty($_POST["password"])) {
+                    $pasErr = "Password is required *";
                     $flag = true;
                 } else {
-                    $manufacture_date = htmlspecialchars(strip_tags($_POST['manufacture_date']));
+                    $password = htmlspecialchars(strip_tags($_POST['password']));
                 }
-                if (empty($_POST["expired_date"])) {
-                    $exErr = "Expired date is required *";
+                if (empty($_POST["first_name"])) {
+                    $firErr = "First name is required *";
                     $flag = true;
                 } else {
-                    $expired_date = htmlspecialchars(strip_tags($_POST['expired_date']));
-                    if (($_POST["expired_date"]) < ($_POST['manufacture_date'])) {
-                        $exErr = "Expired date should be later than manufacture date *";
-                        $flag = true;
-                    }
+                    $first_name = htmlspecialchars(strip_tags($_POST['first_name']));
+                }
+                if (empty($_POST["last_name"])) {
+                    $lasErr = "Last name is required *";
+                    $flag = true;
+                } else {
+                    $last_name = htmlspecialchars(strip_tags($_POST['last_name']));
+                }
+                if (empty($_POST["gender"])) {
+                    $genErr = "Gender is required *";
+                    $flag = true;
+                } else {
+                    $gender = htmlspecialchars(strip_tags($_POST['gender']));
+                }
+                if (empty($_POST["date_of_birth"])) {
+                    $dateErr = "Date of birth is required *";
+                    $flag = true;
+                } else {
+                    $date_of_birth = htmlspecialchars(strip_tags($_POST['date_of_birth']));
                 }
 
                 if ($flag == false) {
                     // insert query
-                    $query = "INSERT INTO products SET name=:name, description=:description, price=:price, created=:created, promotion_price=:promotion_price, manufacture_date=:manufacture_date, expired_date=:expired_date";
+                    $query = "INSERT INTO customers SET username=:username, password=:password, first_name=:first_name, last_name=:last_name, gender=:gender, date_of_birth=:date_of_birth, registration_date_time=:registration_date_time";
                     // prepare query for execution
                     $stmt = $con->prepare($query);
                     // bind the parameters
-                    $stmt->bindParam(':name', $name);
-                    $stmt->bindParam(':description', $description);
-                    $stmt->bindParam(':price', $price);
-                    $stmt->bindParam(':promotion_price', $promotion_price);
-                    $stmt->bindParam(':manufacture_date', $manufacture_date);
-                    $stmt->bindParam(':expired_date', $expired_date);
+                    $stmt->bindParam(':username', $username);
+                    $stmt->bindParam(':password', $password);
+                    $stmt->bindParam(':first_name', $first_name);
+                    $stmt->bindParam(':last_name', $last_name);
+                    $stmt->bindParam(':gender', $gender);
+                    $stmt->bindParam(':date_of_birth', $date_of_birth);
                     // specify when this record was inserted to the database
-                    $created = date('Y-m-d H:i:s');
-                    $stmt->bindParam(':created', $created);
+                    $registration_date_time = date('Y-m-d H:i:s');
+                    $stmt->bindParam(':registration_date_time', $registration_date_time);
                     // Execute the query
 
                     if ($stmt->execute()) {
@@ -160,46 +158,53 @@
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <table class='table table-hover table-responsive table-bordered'>
                 <tr>
-                    <td>Name</td>
-                    <td><span class="error"><?php echo $nameErr; ?></span>
-                        <input type='text' name='name' class='form-control' />
+                    <td>Username</td>
+                    <td><span class="error"><?php echo $useErr; ?></span>
+                        <input type='text' name='username' class='form-control' />
                     </td>
                 </tr>
                 <tr>
-                    <td>Description</td>
-                    <td><span class="error"><?php echo $desErr; ?></span>
-                        <textarea name='description' class='form-control'></textarea>
+                    <td>Password</td>
+                    <td><span class="error"><?php echo $pasErr; ?></span>
+                        <input type="password" name="password" class="form-control" />
                     </td>
                 </tr>
                 <tr>
-                    <td>Price</td>
-                    <td><span class="error"><?php echo $priErr; ?></span>
-                        <input type='text' name='price' class='form-control' />
+                    <td>First name</td>
+                    <td><span class="error"><?php echo $firErr; ?></span>
+                        <input type='text' name='first_name' class='form-control' />
                     </td>
                 </tr>
                 <tr>
-                    <td>Promotion Price</td>
-                    <td><span class="error"><?php echo $proErr; ?></span>
-                        <input type='text' name='promotion_price' class='form-control' />
+                    <td>Last name</td>
+                    <td><span class="error"><?php echo $lasErr; ?></span>
+                        <input type='text' name='last_name' class='form-control' />
                     </td>
                 </tr>
                 <tr>
-                    <td>Manufacture Date</td>
-                    <td><span class="error"><?php echo $manuErr; ?></span>
-                        <input type='text' name='manufacture_date' class='form-control' />
+                    <td>Gender</td>
+                    <td><span class="error"><?php echo $genErr; ?></span>
+                        <input type="radio" name="gender" class="form-check-label" value="Male">
+                        <label for="Male">
+                            Male
+                        </label>
+                        <input type="radio" name="gender" class="form-check-label" value="Female">
+                        <label for="Female">
+                            Female
+                        </label>
                     </td>
                 </tr>
                 <tr>
-                    <td>Expired Date</td>
-                    <td><span class="error"><?php echo $exErr; ?></span>
-                        <input type='text' name='expired_date' class='form-control' />
+                    <td>Date of Birth</td>
+                    <td><span class="error"><?php echo $dateErr; ?></span>
+                        <input type='date' name='date_of_birth' class='form-control' />
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
                         <input type='submit' value='Save' class='btn btn-success' />
-                        <a href='product_read.php' class='btn btn-danger'>Back to read products</a>
+                        <a href='customer_read.php' class='btn btn-danger'>Back to read customers</a>
                     </td>
                 </tr>
             </table>
@@ -214,7 +219,5 @@
     </div>
 
 </body>
-
-<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
 
 </html>
