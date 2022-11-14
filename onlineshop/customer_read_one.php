@@ -28,7 +28,6 @@
         // isset() is a PHP function used to verify if a value is there or not
         $username = isset($_GET['username']) ? $_GET['username'] : die('ERROR: Record Username not found.');
 
-
         // read current record's data
         try {
             // prepare select query
