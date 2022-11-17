@@ -11,6 +11,9 @@
 </head>
 
 <body>
+    <?php
+    include 'menu.php';
+    ?>
 
     <!-- container -->
     <div class="container mt-5 p-5">
@@ -30,7 +33,7 @@
         // read current record's data
         try {
             // prepare select query
-            $query = "SELECT id, name, description, price FROM products WHERE id = ? LIMIT 0,1";
+            $query = "SELECT id, name, description, price, promotion_price, manufacture_date, expired_date FROM products WHERE id = ? LIMIT 0,1";
             $stmt = $con->prepare($query);
 
             // this is the first question mark
@@ -46,6 +49,9 @@
             $name = $row['name'];
             $description = $row['description'];
             $price = $row['price'];
+            $promotion_price = $row['promotion_price'];
+            $manufacture_date = $row['manufacture_date'];
+            $expired_date = $row['expired_date'];
         }
 
         // show error
@@ -72,6 +78,18 @@
                         <td><?php echo htmlspecialchars($price, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
+                        <td>Promotion Price</td>
+                        <td><?php echo htmlspecialchars($promotion_price, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <td>Manufacture Date</td>
+                        <td><?php echo htmlspecialchars($manufacture_date, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <td>Expired Date</td>
+                        <td><?php echo htmlspecialchars($expired_date, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td>
                             <a href='product_read.php' class='btn btn-danger p-3'>Back to read products</a>
@@ -83,9 +101,9 @@
 
     </div> <!-- end .container -->
 
-    <div class="container-fluid p-1 pt-3 bg-success text-white text-center">
-        <p>Copyrights &copy; 2022 Online Shop. All rights reserved.</p>
-    </div>
+    <?php
+    include 'copyright.php';
+    ?>
 
 </body>
 

@@ -23,42 +23,9 @@
 
 <body>
 
-    <nav class="navbar navbar-dark bg-success fixed-top ">
-        <div class="container-fluid">
-            <a class="navbar-brand " href="#">Online Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-end text-bg-success " tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Online Shop</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 ">
-                        <li class="nav-item">
-                            <a class="nav-link " href="home.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="product_create.php">Create Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="product_read.php">Read product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="create-customer.php">Create Customer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="customer_read.php">Read customer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="contact_us.php">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php
+    include 'menu.php';
+    ?>
 
     <!-- container -->
     <div class="container mt-5 p-5">
@@ -70,7 +37,7 @@
         <!-- PHP insert code will be here -->
 
         <?php
-        $nameErr = $desErr = $priErr = $proErr = $manuErr = $exErr = "";
+        $nameErr = $priErr = $proErr = $manuErr = $exErr = "";
         $flag = false;
 
         if ($_POST) {
@@ -85,7 +52,6 @@
                     $name = htmlspecialchars(strip_tags($_POST['name']));
                 }
                 if (empty($_POST["description"])) {
-                    $desErr = "Description is required *";
                     $flag = true;
                 } else {
                     $description = htmlspecialchars(strip_tags($_POST['description']));
@@ -97,7 +63,6 @@
                     $price = htmlspecialchars(strip_tags($_POST['price']));
                 }
                 if (empty($_POST["promotion_price"])) {
-                    $proErr = "Promotion price is required *";
                     $flag = true;
                 } else {
                     $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
@@ -162,37 +127,49 @@
                 <tr>
                     <td>Name</td>
                     <td><span class="error"><?php echo $nameErr; ?></span>
-                        <input type='text' name='name' class='form-control' />
+                        <input type='text' name='name' class='form-control' value='<?php if (isset($_POST['name'])) {
+                                                                                        echo $_POST['name'];
+                                                                                    } ?>' />
                     </td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td><span class="error"><?php echo $desErr; ?></span>
-                        <textarea name='description' class='form-control'></textarea>
+                    <td>
+                        <textarea name='description' class='form-control'><?php if (isset($_POST['description'])) {
+                                                                                echo $_POST['description'];
+                                                                            } ?></textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>Price</td>
                     <td><span class="error"><?php echo $priErr; ?></span>
-                        <input type='text' name='price' class='form-control' />
+                        <input type='text' name='price' class='form-control' value='<?php if (isset($_POST['price'])) {
+                                                                                        echo $_POST['price'];
+                                                                                    } ?>' />
                     </td>
                 </tr>
                 <tr>
                     <td>Promotion Price</td>
                     <td><span class="error"><?php echo $proErr; ?></span>
-                        <input type='text' name='promotion_price' class='form-control' />
+                        <input type='text' name='promotion_price' class='form-control' value='<?php if (isset($_POST['promotion_price'])) {
+                                                                                                    echo $_POST['promotion_price'];
+                                                                                                } ?>' />
                     </td>
                 </tr>
                 <tr>
                     <td>Manufacture Date</td>
                     <td><span class="error"><?php echo $manuErr; ?></span>
-                        <input type='text' name='manufacture_date' class='form-control' />
+                        <input type='date' name='manufacture_date' class='form-control' value='<?php if (isset($_POST['manufacture_date'])) {
+                                                                                                    echo $_POST['manufacture_date'];
+                                                                                                } ?>' />
                     </td>
                 </tr>
                 <tr>
                     <td>Expired Date</td>
                     <td><span class="error"><?php echo $exErr; ?></span>
-                        <input type='text' name='expired_date' class='form-control' />
+                        <input type='date' name='expired_date' class='form-control' value='<?php if (isset($_POST['expired_date'])) {
+                                                                                                echo $_POST['expired_date'];
+                                                                                            } ?>' />
                     </td>
                 </tr>
                 <tr>
@@ -209,12 +186,10 @@
     </div>
     <!-- end .container -->
 
-    <div class="container-fluid p-1 pt-3 bg-success text-white text-center">
-        <p>Copyrights &copy; 2022 Online Shop. All rights reserved.</p>
-    </div>
+    <?php
+    include 'copyright.php';
+    ?>
 
 </body>
-
-<grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
 
 </html>
