@@ -22,6 +22,7 @@
 <body>
 
     <?php
+    include 'session.php';
     include 'menu.php';
     ?>
 
@@ -38,12 +39,16 @@
         $useErr = $pasErr = $firErr = $lasErr = $genErr = $dateErr = $conErr = "";
         $flag = false;
 
+        if (isset($_GET["action"])) {
+            if ($_GET["action"] == "success") {
+                echo "<div class='alert alert-success'>Record was saved.</div>";
+            }
+        }
+
         if ($_POST) {
             // include database connection
             include 'config/database.php';
             try {
-
-                $min = 123456;
 
                 // posted values
                 if (empty($_POST["username"])) {
@@ -51,8 +56,9 @@
                     $flag = true;
                 } else {
                     $username = htmlspecialchars(strip_tags($_POST['username']));
-                    if (strlen($_POST["username"]) < (strlen($min))) {
+                    if (strlen($_POST["username"]) < 6) {
                         $useErr = "Username is too short *";
+                        $flag = true;
                     }
                 }
                 if (empty($_POST["password"])) {
@@ -67,6 +73,7 @@
                     $confirm_password = ($_POST['confirm_password']);
                     if (($_POST['password']) != ($_POST['confirm_password'])) {
                         $conErr = "Please type the correct password *";
+                        $flag = true;
                     }
                 }
                 if (empty($_POST["first_name"])) {
@@ -92,6 +99,26 @@
                     $flag = true;
                 } else {
                     $date_of_birth = htmlspecialchars(strip_tags($_POST['date_of_birth']));
+
+                    $date2 = date("Y-m-d");
+                    $diff = (strtotime($date2) - strtotime($date_of_birth));
+                    $years = floor($diff / (365 * 60 * 60 * 24));
+
+                    if ($years < 18) {
+                        $dateErr = "Your age should above 18 *";
+                        $flag = true;
+                    }
+                }
+
+                $query = "SELECT username FROM customers WHERE username=:username";
+                $stmt = $con->prepare($query);
+                $stmt->bindParam(':username', $username);
+                $stmt->execute();
+                $num = $stmt->rowCount();
+
+                if ($num > 0) {
+                    $useErr = "Username has been taken *";
+                    $flag = true;
                 }
 
                 if ($flag == false) {
@@ -112,7 +139,7 @@
                     // Execute the query
 
                     if ($stmt->execute()) {
-                        echo "<div class='alert alert-success'>Record was saved.</div>";
+                        header("Location: http://localhost/webdev/onlineshop/create_customer.php?action=success");
                     } else {
                         echo "<div class='alert alert-danger'>Unable to save record.</div>";
                     }

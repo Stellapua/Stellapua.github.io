@@ -18,6 +18,8 @@
 <body>
 
     <?php
+    session_start();
+
     $useErr =  $pasErr = $staErr = "";
 
     if ($_POST) {
@@ -26,7 +28,7 @@
 
         $username = htmlspecialchars(strip_tags($_POST['username']));
 
-        $query = "SELECT * FROM customers WHERE username=:username";
+        $query = "SELECT password, account_status FROM customers WHERE username=:username";
         $stmt = $con->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
@@ -34,29 +36,15 @@
 
         if ($num > 0) {
 
-            $password = md5($_POST['password']);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $query = "SELECT * FROM customers WHERE password=:password and username=:username";
-            $stmt = $con->prepare($query);
-            $stmt->bindParam(':password', $password);
-            $stmt->bindParam(':username', $username);
-            $stmt->execute();
-            $num = $stmt->rowCount();
+            $password = $row['password'];
+            $account_status = $row['account_status'];
 
-            if ($num > 0) {
-
-                $account_status = 'Active';
-
-                $result = "SELECT * FROM customers WHERE username=:username and account_status=:account_status ";
-
-                $stmt = $con->prepare($result);
-                $stmt->bindParam(':username', $username);
-                $stmt->bindParam(':account_status', $account_status);
-                $stmt->execute();
-                $num = $stmt->rowCount();
-
-                if ($num > 0) {
+            if ($password == md5($_POST['password'])) {
+                if ($account_status == "Active") {
                     header("Location: http://localhost/webdev/onlineshop/home.php");
+                    $_SESSION['user'] = $_POST['username'];
                 } else {
                     $staErr = "Your Account is suspended *";
                 }

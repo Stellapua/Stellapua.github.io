@@ -21,6 +21,7 @@
 <body>
 
     <?php
+    include 'session.php';
     include 'menu.php';
     ?>
 
