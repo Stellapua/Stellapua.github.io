@@ -29,6 +29,9 @@
                     <li class="nav-item">
                         <a class="nav-link " href="contact_us.php">Contact Us</a>
                     </li>
+                    <li class="col text-center">
+                        <a class="btn btn-danger mt-2" href="logout.php" role="button">LOGOUT</a>
+                    </li>
                 </ul>
             </div>
         </div>

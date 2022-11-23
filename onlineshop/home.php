@@ -66,12 +66,6 @@
         <div class="col text-center">
             <a class="btn btn-outline-success m-2" href="contact_us.php" role="button">CONTACT</a>
         </div>
-        <div class="col-12 mt-5">
-            <h5>Click here to logout</h5>
-        </div>
-        <div class="col text-center">
-            <a class="btn btn-danger mt-2" href="logout.php" role="button">LOGOUT</a>
-        </div>
     </div>
 
     <?php
