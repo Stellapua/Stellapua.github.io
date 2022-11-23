@@ -64,7 +64,10 @@
             </div>
         </div>
         <div class="col text-center">
-            <a class="btn btn-outline-success mb-2" href="contact_us.php" role="button">CONTACT</a>
+            <a class="btn btn-outline-success m-2" href="contact_us.php" role="button">CONTACT</a>
+        </div>
+        <div class="col text-center">
+            <a class="btn btn-danger mt-3" href="logout.php" role="button">LOGOUT</a>
         </div>
     </div>
 
