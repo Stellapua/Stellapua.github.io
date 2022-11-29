@@ -1,3 +1,7 @@
+<?php
+include 'session.php';
+?>
+
 <!DOCTYPE html>
 
 <!DOCTYPE HTML>
@@ -24,7 +28,6 @@
 <body>
 
     <?php
-    include 'session.php';
     include 'menu.php';
     ?>
 

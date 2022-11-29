@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['user'])) {
-    header("Location: http://localhost/webdev/onlineshop/login.php");
+    header("Location: http://localhost/webdev/onlineshop/login.php?action=denied");
 }
 
 ?>

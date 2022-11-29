@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html lang="en">
 
 <head>
@@ -18,7 +22,12 @@
 <body>
 
     <?php
-    session_start();
+
+    if (isset($_GET["action"])) {
+        if ($_GET["action"] == "denied") {
+            echo "<div class='alert alert-danger'>You are not authorised to log in</div>";
+        }
+    }
 
     $useErr =  $pasErr = $staErr = "";
 
