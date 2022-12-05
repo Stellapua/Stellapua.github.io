@@ -8,7 +8,7 @@ include 'session.php';
 <html>
 
 <head>
-    <title>PDO - Create a Record - PHP CRUD Tutorial</title>
+    <title>Create Product</title>
     <!-- Latest compiled and minified Bootstrap CSS (Apply your Bootstrap here -->
 
     <meta charset="utf-8">
@@ -55,26 +55,22 @@ include 'session.php';
                 } else {
                     $name = htmlspecialchars(strip_tags($_POST['name']));
                 }
-                if (empty($_POST["description"])) {
-                    $flag = true;
-                } else {
-                    $description = htmlspecialchars(strip_tags($_POST['description']));
-                }
+
+                $description = htmlspecialchars(strip_tags($_POST['description']));
+
                 if (empty($_POST["price"])) {
                     $priErr = "Price is required *";
                     $flag = true;
                 } else {
                     $price = htmlspecialchars(strip_tags($_POST['price']));
                 }
-                if (empty($_POST["promotion_price"])) {
+
+                $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
+                if (($_POST["promotion_price"]) > ($_POST['price'])) {
+                    $proErr = "Promotion price should be cheaper than original price *";
                     $flag = true;
-                } else {
-                    $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
-                    if (($_POST["promotion_price"]) > ($_POST['price'])) {
-                        $proErr = "Promotion price should be cheaper than original price *";
-                        $flag = true;
-                    }
                 }
+
                 if (empty($_POST["manufacture_date"])) {
                     $manuErr = "Manufacture date is required *";
                     $flag = true;

@@ -6,7 +6,7 @@ include 'session.php';
 <html>
 
 <head>
-    <title>PDO - Create a Record - PHP CRUD Tutorial</title>
+    <title>Read Customers</title>
     <!-- Latest compiled and minified Bootstrap CSS -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +33,7 @@ include 'session.php';
     // delete message prompt will be here
 
     // select all data
-    $query = "SELECT username, first_name, last_name, gender, date_of_birth FROM customers ORDER BY username DESC";
+    $query = "SELECT customer_id, username, first_name, last_name, gender, date_of_birth FROM customers ORDER BY customer_id DESC";
     $stmt = $con->prepare($query);
     $stmt->execute();
 
@@ -57,6 +57,7 @@ include 'session.php';
 
         //creating our table heading
         echo "<tr>";
+        echo "<th>Customer ID</th>";
         echo "<th>Username</th>";
         echo "<th>First Name</th>";
         echo "<th>Last name</th>";
@@ -72,6 +73,7 @@ include 'session.php';
             extract($row);
             // creating new table row per record
             echo "<tr>";
+            echo "<td>{$customer_id}</td>";
             echo "<td>{$username}</td>";
             echo "<td>{$first_name}</td>";
             echo "<td>{$last_name}</td>";
@@ -79,13 +81,13 @@ include 'session.php';
             echo "<td>{$date_of_birth}</td>";
             echo "<td>";
             // read one record
-            echo "<a href='customer_read_one.php?username={$username}' class='btn btn-info m-r-1em'>Read</a>";
+            echo "<a href='customer_read_one.php?customer_id={$customer_id}' class='btn btn-info m-r-1em'>Read</a>";
 
             // we will use this links on next part of this post
-            echo "<a href='update.php?username={$username}' class='btn btn-primary m-r-1em'>Edit</a>";
+            echo "<a href='customer_update.php?customer_id={$customer_id}' class='btn btn-primary m-r-1em'>Edit</a>";
 
             // we will use this links on next part of this post
-            echo "<a href='#' onclick='delete_user({$username});'  class='btn btn-danger'>Delete</a>";
+            echo "<a href='#' onclick='delete_user({$customer_id});'  class='btn btn-danger'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }

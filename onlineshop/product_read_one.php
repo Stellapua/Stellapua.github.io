@@ -6,7 +6,7 @@ include 'session.php';
 <html>
 
 <head>
-    <title>PDO - Read One Record - PHP CRUD Tutorial</title>
+    <title>Read Product</title>
     <!-- Latest compiled and minified Bootstrap CSS -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,7 @@ include 'session.php';
         <div class="page-header text-center">
             <h1>Read Product</h1>
         </div>
+
 
         <!-- PHP read one record will be here -->
         <?php

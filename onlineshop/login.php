@@ -23,11 +23,6 @@ session_start();
 
     <?php
 
-    if (isset($_GET["action"])) {
-        if ($_GET["action"] == "denied") {
-            echo "<div class='alert alert-danger'>You are not authorised to log in</div>";
-        }
-    }
 
     $useErr =  $pasErr = $staErr = "";
 
@@ -72,6 +67,15 @@ session_start();
             <main class="form-signin col-4 mt-4">
 
                 <h1 class="h3 mb-3 fw-normal text-center">SIGN IN</h1>
+
+                <?php
+                if (isset($_GET["action"])) {
+                    if ($_GET["action"] == "denied") {
+                        echo "<div class='alert alert-danger'>You are not authorised to log in</div>";
+                    }
+                }
+                ?>
+
                 <span class="error"><?php echo $useErr; ?></span>
                 <span class="error"><?php echo $pasErr; ?></span>
                 <span class="error"><?php echo $staErr; ?></span>

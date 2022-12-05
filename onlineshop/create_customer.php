@@ -6,7 +6,7 @@ include 'session.php';
 <html>
 
 <head>
-    <title>PDO - Create a Record - PHP CRUD Tutorial</title>
+    <title>Create Customer</title>
     <!-- Latest compiled and minified Bootstrap CSS (Apply your Bootstrap here -->
 
     <meta charset="utf-8">
@@ -165,7 +165,7 @@ include 'session.php';
                     <td><span class="error"><?php echo $useErr; ?></span>
                         <input type='text' name='username' class='form-control' value='<?php if (isset($_POST['username'])) {
                                                                                             echo $_POST['username'];
-                                                                                        } ?> ' />
+                                                                                        } ?>' />
                     </td>
                 </tr>
                 <tr>
