@@ -59,6 +59,7 @@ include 'session.php';
                 //count total amount
                 for ($a = 0; $a < 3; $a++) {
                     $query = "SELECT price, promotion_price FROM products WHERE id=:id";
+                    // bind choosen (product id) to order_details (order id)
                     $stmt = $con->prepare($query);
                     $stmt->bindParam(':id', $product_id[$a]);
                     $stmt->execute();
@@ -85,12 +86,14 @@ include 'session.php';
                 if ($stmt->execute()) {
 
                     echo "<div class='alert alert-success'>Able to create order.</div>";
+                    // put order id that created to order_detail table
                     $order_id = $con->lastInsertId();
 
                     // take price and promo price from database
                     for ($a = 0; $a < 3; $a++) {
                         $query = "SELECT price, promotion_price FROM products WHERE id = :id";
                         $stmt = $con->prepare($query);
+                        // bind choosen (product id) to order_details (order id)
                         $stmt->bindParam(':id', $product_id[$a]);
                         $stmt->execute();
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
