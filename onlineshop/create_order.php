@@ -38,7 +38,7 @@ include 'session.php';
         <?php
         include 'config/database.php';
 
-        $useErr = $proErr = $quaErr = "";
+        $useErr = $proErr = "";
         $flag = false;
 
         if ($_POST) {
@@ -51,77 +51,71 @@ include 'session.php';
             }
 
             $product_id = $_POST['product_id'];
+            //count value, if dup add value 
+            $value = array_count_values($product_id);
             $quantity = $_POST['quantity'];
 
-            if ($flag == false) {
-                $total_amount = 0;
+            // var_dump($product_id);
+            // echo "<br>";
+            // var_dump($quantity);
+            // echo "<br>";
+            // echo print_r($value);
 
-                //count total amount
-                for ($a = 0; $a < 3; $a++) {
-                    $query = "SELECT price, promotion_price FROM products WHERE id=:id";
-                    // bind choosen (product id) to order_details (order id)
-                    $stmt = $con->prepare($query);
-                    $stmt->bindParam(':id', $product_id[$a]);
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    if ($row['promotion_price'] == 0) {
-                        $price = $row['price'];
-                    } else {
-                        $price = $row['promotion_price'];
-                    }
-
-                    //combine the amount with previous amount
-                    $total_amount = $total_amount + ((float)$price * (int)$quantity[$a]);
-                }
-
-                //send data to order_summary
-                $query = "INSERT INTO order_summary SET customer_id=:customer_id, order_date=:order_date, total_amount=:total_amount";
-                $stmt = $con->prepare($query);
-                $stmt->bindParam(':customer_id', $customer_id);
-                $order_date = date('Y-m-d');
-                $stmt->bindParam(':order_date', $order_date);
-                $stmt->bindParam(':total_amount', $total_amount);
-
-                if ($stmt->execute()) {
-
-                    echo "<div class='alert alert-success'>Able to create order.</div>";
-                    // put order id that created to order_detail table
-                    $order_id = $con->lastInsertId();
-
-                    // take price and promo price from database
-                    for ($a = 0; $a < 3; $a++) {
-                        $query = "SELECT price, promotion_price FROM products WHERE id = :id";
-                        $stmt = $con->prepare($query);
-                        // bind choosen (product id) to order_details (order id)
-                        $stmt->bindParam(':id', $product_id[$a]);
-                        $stmt->execute();
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                        if ($row["promotion_price"] == 0) {
-                            $price = $row['price'];
-                        } else {
-                            $price = $row["promotion_price"];
-                        }
-
-                        $price_each = ((float)$price * (int)$quantity[$a]);
-
-                        //send data to order_detail
-                        $query = "INSERT INTO order_detail SET product_id=:product_id, quantity=:quantity, order_id=:order_id, price_each=:price_each";
-                        $stmt = $con->prepare($query);
-                        $stmt->bindParam(':product_id', $product_id[$a]);
-                        $stmt->bindParam(':quantity', $quantity[$a]);
-                        $stmt->bindParam(':order_id', $order_id);
-                        $stmt->bindParam(':price_each', $price_each);
-                        $stmt->execute();
-                    }
-                } else {
-                    echo "<div class='alert alert-danger'>Unable to create order.</div>";
-                }
-            } else {
+            // must choose one product
+            if ($product_id[0] == "" && $product_id[1] == "" && $product_id[2] == "") {
+                $proErr = "Please at least choose a product *";
                 echo "<div class='alert alert-danger'>Unable to create order.</div>";
+            } else {
+                // must type quantity
+                if ((!empty($product_id[0]) && empty($quantity[0])) or (!empty($product_id[1]) && empty($quantity[1])) or (!empty($product_id[2]) && empty($quantity[2]))) {
+                    $proErr = "Please type the quantity of your product *";
+                    echo "<div class='alert alert-danger'>Unable to create order.</div>";
+                } else {
+
+                    for ($x = 0; $x < count($product_id); $x++) {
+                        // only record the product that have quantity to table
+                        if (!empty($product_id[$x]) && !empty($quantity[$x])) {
+
+                            //only record non dup product
+                            if ($value[$product_id[$x]] == 1) {
+
+                                if ($flag == false) {
+                                    //send data to order_summary
+                                    $query = "INSERT INTO order_summary SET customer_id=:customer_id, order_date=:order_date ";
+                                    $stmt = $con->prepare($query);
+                                    $stmt->bindParam(':customer_id', $customer_id);
+                                    $order_date = date('Y-m-d');
+                                    $stmt->bindParam(':order_date', $order_date);
+
+                                    if ($stmt->execute()) {
+
+                                        echo "<div class='alert alert-success'>Able to create order.</div>";
+                                        // put order id that created to order_detail table
+                                        $order_id = $con->lastInsertId();
+
+                                        //send data to order_detail
+                                        $query = "INSERT INTO order_detail SET product_id=:product_id, quantity=:quantity, order_id=:order_id ";
+                                        $stmt = $con->prepare($query);
+                                        $stmt->bindParam(':product_id', $product_id[$x]);
+                                        $stmt->bindParam(':quantity', $quantity[$x]);
+                                        $stmt->bindParam(':order_id', $order_id);
+
+                                        $stmt->execute();
+                                    } else {
+                                        echo "<div class='alert alert-danger'>Unable to create order.</div>";
+                                    }
+                                } else {
+                                    echo "<div class='alert alert-danger'>Unable to create order.</div>";
+                                }
+                            } else {
+                                $proErr = "Please do not choose the same product *";
+                            }
+                        }
+                    }
+                }
             }
-        } ?>
+        }
+        ?>
 
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -155,7 +149,6 @@ include 'session.php';
                 </div>
             </div>
             <span class="error"><?php echo $proErr; ?></span>
-            <span class="error"><?php echo $quaErr; ?></span>
             <?php
 
             for ($a = 0; $a < 3; $a++) {
@@ -194,7 +187,6 @@ include 'session.php';
 
                     </div>
                     <div class="col-3 mb-2">
-
                         <input type='number' name='quantity[]' class='form-control' min=1 />
                     </div>
                 <?php } ?>
