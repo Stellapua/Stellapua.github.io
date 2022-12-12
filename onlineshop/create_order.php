@@ -61,7 +61,7 @@ include 'session.php';
             // echo "<br>";
             // echo print_r($value);
 
-            // must choose one product
+            // must choose one product 
             if ($product_id[0] == "" && $product_id[1] == "" && $product_id[2] == "") {
                 $proErr = "Please at least choose a product *";
                 echo "<div class='alert alert-danger'>Unable to create order.</div>";
