@@ -42,6 +42,8 @@ include 'session.php';
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $order_detail_id = $row['order_detail_id'];
+
+        print_r($order_detail_id);
         $product_id = $row['product_id'];
         $quantity = $row['quantity'];
         $price_each = $row['price_each'];
