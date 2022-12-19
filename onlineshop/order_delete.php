@@ -10,18 +10,18 @@ try {
     $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: Record Order ID not found.');
 
     // delete query
-    $query = "DELETE FROM order_detail WHERE order_id = ?";
+    $query = "DELETE FROM order_summary WHERE order_id = ?";
     $stmt = $con->prepare($query);
     $stmt->bindParam(1, $order_id);
 
     if ($stmt->execute()) {
 
-        $query = "DELETE FROM order_summary WHERE order_id = ?";
+        $query = "DELETE FROM order_detail WHERE order_id = ?";
         $stmt = $con->prepare($query);
         $stmt->bindParam(1, $order_id);
 
         if ($stmt->execute()) {
-            header('Location:order_list.php?action=deleted');
+            header('Location:order_read.php?action=deleted');
         } else {
             die('Unable to delete in order summary.');
         }
