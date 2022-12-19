@@ -78,10 +78,10 @@ include 'session.php';
                     $stmt = $con->prepare($query);
                     $stmt->bindParam(':id', $product_id[$x]);
                     $stmt->execute();
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     $num = $stmt->rowCount();
 
                     if ($num > 0) {
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
                         if ($row['promotion_price'] == 0) {
                             $price = $row['price'];
                         } else {
