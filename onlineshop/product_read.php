@@ -37,11 +37,9 @@ include 'session.php';
         if ($action == 'deleted') {
             echo "<div class='alert alert-success'>Record was deleted.</div>";
         }
-
         if ($action == 'failed') {
             echo "<div class='alert alert-danger'>You cannot delete ordered product.</div>";
         }
-
 
         // select all data
         $query = "SELECT id, name, description, price FROM products ORDER BY id DESC";

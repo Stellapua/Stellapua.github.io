@@ -11,22 +11,15 @@ try {
     // isset() is a PHP function used to verify if a value is there or not
     $id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
 
-    $query = "SELECT product_id, order_detail_id FROM order_detail ORDER BY order_detail_id DESC";
+    $query = "SELECT o.product_id, p.id FROM order_detail o INNER JOIN products p ON p.id = o.product_id WHERE o.product_id = ? LIMIT 0,1";
     $stmt = $con->prepare($query);
+    $stmt->bindParam(1, $id);
     $stmt->execute();
     $num = $stmt->rowCount();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $product_id = $row['product_id'];
 
     if ($num > 0) {
-        if ($id == $product_id) {
-            $flag = true;
-        }
+        header('Location:product_read.php?action=failed');
     } else {
-        die('ERROR: Product ID not found.');
-    }
-
-    if ($flag == false) {
         // delete query
         $query = "DELETE FROM products WHERE id = ?";
         $stmt = $con->prepare($query);
@@ -39,8 +32,6 @@ try {
         } else {
             die('Unable to delete record.');
         }
-    } else {
-        header('Location:product_read.php?action=failed');
     }
 }
 // show error
