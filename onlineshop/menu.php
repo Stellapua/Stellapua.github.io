@@ -30,6 +30,9 @@
                         <a class="nav-link " href="create_order.php">Create Order</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link " href="order_read.php">Order List</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link " href="contact_us.php">Contact Us</a>
                     </li>
                     <li class="col text-center">

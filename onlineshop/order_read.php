@@ -6,7 +6,7 @@ include 'session.php';
 <html>
 
 <head>
-    <title>Read Products</title>
+    <title>Order List</title>
     <!-- Latest compiled and minified Bootstrap CSS -->
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@ include 'session.php';
     <!-- container -->
     <div class="container">
         <div class="page-header text-center mt-5 pt-5">
-            <h1>Read Products</h1>
+            <h1>Order List</h1>
         </div>
 
         <?php
@@ -38,13 +38,8 @@ include 'session.php';
             echo "<div class='alert alert-success'>Record was deleted.</div>";
         }
 
-        if ($action == 'failed') {
-            echo "<div class='alert alert-danger'>You cannot delete ordered product.</div>";
-        }
-
-
         // select all data
-        $query = "SELECT id, name, description, price FROM products ORDER BY id DESC";
+        $query = "SELECT order_id, customer_id, order_date, total_amount FROM order_summary ORDER BY order_id DESC";
         $stmt = $con->prepare($query);
         $stmt->execute();
 
@@ -54,7 +49,7 @@ include 'session.php';
 
         <!-- link to create record form-->
         <div class="col text-center">
-            <a href='product_create.php' class='btn btn-success m-b-1em text-center'>Create New Product</a>
+            <a href='create_order.php' class='btn btn-success m-b-1em text-center'>Create New Order</a>
         </div>
 
         <!-- check if more than 0 record found -->
@@ -68,11 +63,10 @@ include 'session.php';
 
             //creating our table heading
             echo "<tr>";
-            echo "<th>ID</th>";
-            echo "<th>Name</th>";
-            echo "<th>Description</th>";
-            echo "<th>Price</th>";
-            echo "<th>Action</th>";
+            echo "<th>Order ID</th>";
+            echo "<th>Customer ID</th>";
+            echo "<th>Order Date</th>";
+            echo "<th>Total Order Amount</th>";
             echo "</tr>";
 
             // table body will be here
@@ -83,19 +77,16 @@ include 'session.php';
                 extract($row);
                 // creating new table row per record
                 echo "<tr>";
-                echo "<td>{$id}</td>";
-                echo "<td>{$name}</td>";
-                echo "<td>{$description}</td>";
-                echo "<td>{$price}</td>";
+                echo "<td>{$order_id}</td>";
+                echo "<td>{$customer_id}</td>";
+                echo "<td>{$order_date}</td>";
+                echo "<td>{$total_amount}</td>";
                 echo "<td>";
                 // read one record
-                echo "<a href='product_read_one.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";
+                echo "<a href='order_read_one.php?order_id={$order_id}' class='btn btn-info m-r-1em'>Read</a>";
 
                 // we will use this links on next part of this post
-                echo "<a href='product_update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";
-
-                // we will use this links on next part of this post
-                echo "<a href='#' onclick='delete_user({$id});'  class='btn btn-danger'>Delete</a>";
+                echo "<a href='#' onclick='delete_user({$order_id});'  class='btn btn-danger'>Delete</a>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -117,12 +108,12 @@ include 'session.php';
     <script type='text/javascript'>
         // confirm record deletion
 
-        function delete_user(id) {
+        function delete_user(order_id) {
             var answer = confirm('Are you sure ? ');
             if (answer) {
                 // if user clicked ok,
                 // pass the id to delete.php and execute the delete query
-                window.location = 'product_delete.php?id=' + id;
+                window.location = 'order_delete.php?order_id=' + order_id;
             }
         }
     </script>

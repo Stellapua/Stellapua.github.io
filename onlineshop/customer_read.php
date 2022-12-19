@@ -31,6 +31,16 @@ include 'session.php';
     include 'config/database.php';
 
     // delete message prompt will be here
+    $action = isset($_GET['action']) ? $_GET['action'] : "";
+
+    // if it was redirected from delete.php
+    if ($action == 'deleted') {
+        echo "<div class='alert alert-success'>Record was deleted.</div>";
+    }
+
+    if ($action == 'failed') {
+        echo "<div class='alert alert-danger'>You cannot delete customer that had ordered product.</div>";
+    }
 
     // select all data
     $query = "SELECT customer_id, username, first_name, last_name, gender, date_of_birth FROM customers ORDER BY customer_id DESC";
@@ -106,6 +116,18 @@ include 'session.php';
     </div> <!-- end .container -->
 
     <!-- confirm delete record will be here -->
+    <script type='text/javascript'>
+        // confirm record deletion
+
+        function delete_user(customer_id) {
+            var answer = confirm('Are you sure ? ');
+            if (answer) {
+                // if user clicked ok,
+                // pass the id to delete.php and execute the delete query
+                window.location = 'customer_delete.php?customer_id=' + customer_id;
+            }
+        }
+    </script>
 
     <?php
     include 'copyright.php';
