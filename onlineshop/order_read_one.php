@@ -89,9 +89,7 @@ include 'session.php';
                 </tr>
 
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="3"></td>
                     <td><?php echo "RM" . htmlspecialchars($total_amount, ENT_QUOTES); ?></td>
                 </tr>
             </tbody>
