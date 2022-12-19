@@ -82,6 +82,7 @@ include 'session.php';
                     $num = $stmt->rowCount();
 
                     if ($num > 0) {
+
                         if ($row['promotion_price'] == 0) {
                             $price = $row['price'];
                         } else {
@@ -109,12 +110,15 @@ include 'session.php';
                             $stmt = $con->prepare($query);
                             $stmt->bindParam(':id', $product_id[$x]);
                             $stmt->execute();
+                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
                             $num = $stmt->rowCount();
 
-                            if ($row['promotion_price'] == 0) {
-                                $price = $row['price'];
-                            } else {
-                                $price = $row['promotion_price'];
+                            if ($num > 0) {
+                                if ($row['promotion_price'] == 0) {
+                                    $price = $row['price'];
+                                } else {
+                                    $price = $row['promotion_price'];
+                                }
                             }
 
                             $price_each = ((float)$price * (int)$quantity[$x]);

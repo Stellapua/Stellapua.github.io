@@ -37,7 +37,6 @@ include 'session.php';
     if ($action == 'deleted') {
         echo "<div class='alert alert-success'>Record was deleted.</div>";
     }
-
     if ($action == 'failed') {
         echo "<div class='alert alert-danger'>You cannot delete customer that had ordered product.</div>";
     }
