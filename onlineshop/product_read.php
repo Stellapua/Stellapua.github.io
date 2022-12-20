@@ -40,6 +40,9 @@ include 'session.php';
         if ($action == 'failed') {
             echo "<div class='alert alert-danger'>You cannot delete ordered product.</div>";
         }
+        if ($action == 'done') {
+            echo "<div class='alert alert-success'>New product has created.</div>";
+        }
 
         // select all data
         $query = "SELECT id, name, description, price FROM products ORDER BY id DESC";
@@ -111,6 +114,10 @@ include 'session.php';
 
     </div> <!-- end .container -->
 
+    <?php
+    include 'copyright.php';
+    ?>
+
     <!-- confirm delete record will be here -->
     <script type='text/javascript'>
         // confirm record deletion
@@ -124,10 +131,6 @@ include 'session.php';
             }
         }
     </script>
-
-    <?php
-    include 'copyright.php';
-    ?>
 
 </body>
 

@@ -20,8 +20,8 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5">
-        <div class="page-header text-center">
+    <div class="container mt-5 p-5 mb-5">
+        <div class="page-header text-center mb-5">
             <h1>Order Detail</h1>
         </div>
 
@@ -35,64 +35,48 @@ include 'session.php';
         include 'config/database.php';
 
         // select id, quantity, price each from order_detail
-        $query = "SELECT order_id, order_detail_id, product_id, quantity, price_each FROM order_detail WHERE order_id = ? LIMIT 0,1";
+        $query = "SELECT quantity, price_each, name, price, promotion_price
+        FROM order_detail o
+        INNER JOIN products p
+        ON o.product_id = p.id 
+        WHERE order_id = ? ";
         $stmt = $con->prepare($query);
         $stmt->bindParam(1, $order_id);
         $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $order_detail_id = $row['order_detail_id'];
-
-        print_r($order_detail_id);
-        $product_id = $row['product_id'];
-        $quantity = $row['quantity'];
-        $price_each = $row['price_each'];
-
-        // select product name & price from product
-        $query = "SELECT name, price, promotion_price FROM products WHERE id =:id";
-        $stmt = $con->prepare($query);
-        $stmt->bindParam(':id', $product_id);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $name = $row['name'];
-        if ($row['promotion_price'] == 0) {
-            $price = $row['price'];
-        } else {
-            $price = $row['promotion_price'];
-        }
-
-        // select total amount from order_summary
-        $query = "SELECT order_id, total_amount FROM order_summary WHERE order_id = ? LIMIT 0,1";
-        $stmt = $con->prepare($query);
-        $stmt->bindParam(1, $order_id);
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $total_amount = $row['total_amount'];
+        $num = $stmt->rowCount();
         ?>
 
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Product</th>
-                    <th scope="col">Price</th>
+                    <th scope="col">Price (RM)</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total </th>
+                    <th scope="col">Total (RM)</th>
                 </tr>
             </thead>
             <tbody>
 
-                <tr>
-                    <td><?php echo htmlspecialchars($name, ENT_QUOTES); ?></th>
-                    <td><?php echo "RM" . htmlspecialchars($price, ENT_QUOTES); ?></td>
-                    <td><?php echo htmlspecialchars($quantity, ENT_QUOTES); ?></td>
-                    <td><?php echo "RM" . htmlspecialchars($price_each, ENT_QUOTES); ?></td>
-                </tr>
+                <?php
+                if ($num > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row); ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($name, ENT_QUOTES); ?></th>
+                            <td><?php if ($promotion_price == 0) {
+                                    echo number_format((float)htmlspecialchars($price, ENT_QUOTES), 2, '.', '');
+                                } else {
+                                    echo number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '');
+                                } ?></td>
+                            <td><?php echo htmlspecialchars($quantity, ENT_QUOTES); ?></td>
+                            <td><?php echo number_format((float)htmlspecialchars($price_each, ENT_QUOTES), 2, '.', ''); ?></td>
+                        </tr>
+                <?php }
+                } ?>
 
                 <tr>
                     <td colspan="3"></td>
-                    <td><?php echo "RM" . htmlspecialchars($total_amount, ENT_QUOTES); ?></td>
+                    <td><?php  ?></td>
                 </tr>
             </tbody>
         </table>

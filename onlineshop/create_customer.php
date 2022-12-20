@@ -42,12 +42,6 @@ include 'session.php';
         $useErr = $pasErr = $firErr = $lasErr = $genErr = $dateErr = $conErr = "";
         $flag = false;
 
-        if (isset($_GET["action"])) {
-            if ($_GET["action"] == "success") {
-                echo "<div class='alert alert-success'>Record was saved.</div>";
-            }
-        }
-
         if ($_POST) {
             // include database connection
             include 'config/database.php';
@@ -142,7 +136,7 @@ include 'session.php';
                     // Execute the query
 
                     if ($stmt->execute()) {
-                        header("Location: http://localhost/webdev/onlineshop/create_customer.php?action=success");
+                        header('Location:customer_read.php?action=done');
                     } else {
                         echo "<div class='alert alert-danger'>Unable to save record.</div>";
                     }

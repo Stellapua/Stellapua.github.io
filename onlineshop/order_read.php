@@ -37,9 +37,17 @@ include 'session.php';
         if ($action == 'deleted') {
             echo "<div class='alert alert-success'>Record was deleted.</div>";
         }
+        if ($action == 'done') {
+            echo "<div class='alert alert-success'>New order has created.</div>";
+        }
 
         // select all data
-        $query = "SELECT order_id, customer_id, order_date, total_amount FROM order_summary ORDER BY order_id DESC";
+        $query = "SELECT order_id, o.customer_id, first_name, last_name, order_date, total_amount
+        FROM order_summary o
+        INNER JOIN customers c
+        ON c.customer_id = o.customer_id
+        ORDER BY order_id DESC";
+
         $stmt = $con->prepare($query);
         $stmt->execute();
 
@@ -64,9 +72,10 @@ include 'session.php';
             //creating our table heading
             echo "<tr>";
             echo "<th>Order ID</th>";
-            echo "<th>Customer ID</th>";
+            echo "<th>First Name</th>";
+            echo "<th>Last Name</th>";
             echo "<th>Order Date</th>";
-            echo "<th>Total Order Amount</th>";
+            echo "<th>Total Order Amount (RM)</th>";
             echo "</tr>";
 
             // table body will be here
@@ -78,9 +87,10 @@ include 'session.php';
                 // creating new table row per record
                 echo "<tr>";
                 echo "<td>{$order_id}</td>";
-                echo "<td>{$customer_id}</td>";
+                echo "<td>{$first_name}</td>";
+                echo "<td>{$last_name}</td>";
                 echo "<td>{$order_date}</td>";
-                echo "<td>{$total_amount}</td>";
+                echo "<td class= \"text-end\" > " . number_format((float)$total_amount, 2, '.', '') . "</td>";
                 echo "<td>";
                 // read one record
                 echo "<a href='order_read_one.php?order_id={$order_id}' class='btn btn-info m-r-1em'>Read</a>";
@@ -104,6 +114,10 @@ include 'session.php';
 
     </div> <!-- end .container -->
 
+    <?php
+    include 'copyright.php';
+    ?>
+
     <!-- confirm delete record will be here -->
     <script type='text/javascript'>
         // confirm record deletion
@@ -117,10 +131,6 @@ include 'session.php';
             }
         }
     </script>
-
-    <?php
-    include 'copyright.php';
-    ?>
 
 </body>
 
