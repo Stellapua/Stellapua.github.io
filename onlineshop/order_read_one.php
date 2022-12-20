@@ -52,7 +52,7 @@ include 'session.php';
                     <th scope="col">Product</th>
                     <th scope="col">Price (RM)</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Total (RM)</th>
+                    <th scope="col">Total Each (RM)</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,8 +73,8 @@ include 'session.php';
                         </tr>
                     <?php } ?>
                     <tr>
-                        <td colspan="3"></td>
-                        <th><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></th>
+                        <th colspan="3">Total (RM)</th>
+                        <td><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
