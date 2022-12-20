@@ -20,11 +20,10 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5 mb-5">
+    <div class="container mt-5 p-5 mb-4">
         <div class="page-header text-center mb-5">
             <h1>Order Detail</h1>
         </div>
-
 
         <!-- PHP read one record will be here -->
         <?php
@@ -35,11 +34,12 @@ include 'session.php';
         include 'config/database.php';
 
         // select id, quantity, price each from order_detail
-        $query = "SELECT quantity, price_each, name, price, promotion_price
+        $query = "SELECT quantity, price_each, name, price, promotion_price, total_amount 
         FROM order_detail o
-        INNER JOIN products p
-        ON o.product_id = p.id 
-        WHERE order_id = ? ";
+        INNER JOIN products p ON o.product_id = p.id 
+        INNER JOIN order_summary s ON o.order_id = s.order_id 
+        WHERE o.order_id = ? ";
+
         $stmt = $con->prepare($query);
         $stmt->bindParam(1, $order_id);
         $stmt->execute();
@@ -76,7 +76,7 @@ include 'session.php';
 
                 <tr>
                     <td colspan="3"></td>
-                    <td><?php  ?></td>
+                    <td><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
                 </tr>
             </tbody>
         </table>
