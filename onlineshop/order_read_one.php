@@ -71,13 +71,12 @@ include 'session.php';
                             <td><?php echo htmlspecialchars($quantity, ENT_QUOTES); ?></td>
                             <td><?php echo number_format((float)htmlspecialchars($price_each, ENT_QUOTES), 2, '.', ''); ?></td>
                         </tr>
-                <?php }
-                } ?>
-
-                <tr>
-                    <td colspan="3"></td>
-                    <td><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
-                </tr>
+                    <?php } ?>
+                    <tr>
+                        <td colspan="3"></td>
+                        <th><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></th>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
 
