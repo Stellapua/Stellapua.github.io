@@ -29,10 +29,48 @@ include 'session.php';
     ?>
 
     <div class="container-fluid text-center p-5 mt-5 ">
-        <div class="row align-item-center">
+        <div class="row align-item-center mb-4">
             <div class="col-12">
                 <h1>PLANT WHOLESALE ONLINE SHOP</h1>
                 <h5>We provide plants for indoor and outdoor with total of 200 species you can find in the Malaysia.</h5>
+            </div>
+        </div>
+
+        <div class="container mx-auto mt-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="Images/tulip.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Tulip</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Best Selling Top 1</h6>
+                            <p class="card-text">Tulips are a genus of spring-blooming perennial herbaceous bulbiferous geophytes.</p>
+                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="Images/rose.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Rose</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Best Selling Top 2</h6>
+                            <p class="card-text">A rose is either a woody perennial flowering plant of the genus Rosa, in the family Rosaceae.</p>
+                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="Images/lily.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lily</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Best Selling Top 3</h6>
+                            <p class="card-text">Lilium is a genus of herbaceous flowering plants growing from bulbs.</p>
+                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
