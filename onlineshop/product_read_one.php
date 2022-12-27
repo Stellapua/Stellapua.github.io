@@ -20,7 +20,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5">
+    <div class="container-fluid mt-5 p-5">
         <div class="page-header text-center">
             <h1>Read Product</h1>
         </div>
@@ -76,15 +76,23 @@ include 'session.php';
                     </tr>
                     <tr>
                         <td>Description</td>
-                        <td><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></td>
+                        <td><?php if (htmlspecialchars($description, ENT_QUOTES) == NULL) {
+                                echo "-";
+                            } else {
+                                echo htmlspecialchars($description, ENT_QUOTES);
+                            }; ?></td>
                     </tr>
                     <tr>
-                        <td>Price</td>
-                        <td><?php echo htmlspecialchars($price, ENT_QUOTES);  ?></td>
+                        <td>Price (RM)</td>
+                        <td><?php echo number_format((float)htmlspecialchars($price, ENT_QUOTES), 2, '.', '');  ?></td>
                     </tr>
                     <tr>
-                        <td>Promotion Price</td>
-                        <td><?php echo htmlspecialchars($promotion_price, ENT_QUOTES);  ?></td>
+                        <td>Promotion Price (RM)</td>
+                        <td><?php if (htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) {
+                                echo "-";
+                            } else {
+                                echo number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '');
+                            }; ?></td>
                     </tr>
                     <tr>
                         <td>Manufacture Date</td>
@@ -92,15 +100,18 @@ include 'session.php';
                     </tr>
                     <tr>
                         <td>Expired Date</td>
-                        <td><?php echo htmlspecialchars($expired_date, ENT_QUOTES);  ?></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <a href='product_read.php' class='btn btn-danger p-3'>Back to read products</a>
-                        </td>
+                        <td><?php if (htmlspecialchars($expired_date, ENT_QUOTES) == NULL) {
+                                echo "-";
+                            } else {
+                                echo htmlspecialchars($expired_date, ENT_QUOTES);
+                            }; ?></td>
                     </tr>
                 </table>
+                <div class='row justify-content-center mt-5'>
+                    <div class='col-auto'>
+                        <a href='product_read.php' class='btn btn-danger p-3'>Back to read products</a>
+                    </div>
+                </div>
             </div>
         </div>
 

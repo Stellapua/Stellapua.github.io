@@ -20,7 +20,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5 mb-4">
+    <div class="container-fluid mt-5 p-5 mb-4">
         <div class="page-header text-center mb-5">
             <h1>Order Detail</h1>
         </div>
@@ -33,11 +33,11 @@ include 'session.php';
 
         include 'config/database.php';
 
-        // select id, quantity, price each from order_detail
-        $query = "SELECT quantity, price_each, name, price, promotion_price, total_amount 
+        $query = "SELECT c.customer_id, order_date, first_name, last_name, order_date, quantity, price_each, name, price, promotion_price, total_amount 
         FROM order_detail o
         INNER JOIN products p ON o.product_id = p.id 
         INNER JOIN order_summary s ON o.order_id = s.order_id 
+        INNER JOIN customers c ON s.customer_id = c.customer_id
         WHERE o.order_id = ? ";
 
         $stmt = $con->prepare($query);
@@ -46,38 +46,39 @@ include 'session.php';
         $num = $stmt->rowCount();
         ?>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price (RM)</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Total Each (RM)</th>
-                </tr>
-            </thead>
-            <tbody>
+        <table class='table table-hover table-responsive table-bordered text-center mt-3'>
+            <tr>
+                <th>Product</th>
+                <th>Price (RM)</th>
+                <th>Promotion Price (RM)</th>
+                <th>Quantity</th>
+                <th>Total Each (RM)</th>
+            </tr>
 
-                <?php
-                if ($num > 0) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        extract($row); ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($name, ENT_QUOTES); ?></th>
-                            <td><?php if ($promotion_price == 0) {
-                                    echo number_format((float)htmlspecialchars($price, ENT_QUOTES), 2, '.', '');
-                                } else {
-                                    echo number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '');
-                                } ?></td>
-                            <td><?php echo htmlspecialchars($quantity, ENT_QUOTES); ?></td>
-                            <td><?php echo number_format((float)htmlspecialchars($price_each, ENT_QUOTES), 2, '.', ''); ?></td>
-                        </tr>
-                    <?php } ?>
+            <?php if ($num > 0) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    extract($row); ?>
                     <tr>
-                        <th colspan="3">Total (RM)</th>
-                        <td><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
+                        <td><?php echo htmlspecialchars($name, ENT_QUOTES); ?></td>
+                        <td class="text-end"><?php echo number_format((float)htmlspecialchars($price, ENT_QUOTES), 2, '.', ''); ?></td>
+                        <td class="text-end"><?php if (htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) {
+                                                    echo "-";
+                                                } else {
+                                                    echo number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '');
+                                                } ?></td>
+                        <td><?php echo htmlspecialchars($quantity, ENT_QUOTES); ?></td>
+                        <td class="text-end"><?php echo number_format((float)htmlspecialchars($price_each, ENT_QUOTES), 2, '.', ''); ?></td>
                     </tr>
                 <?php } ?>
-            </tbody>
+                <tr>
+                    <th colspan="4">Total (RM)</th>
+                    <td class="text-end"><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
+                </tr>
+            <?php
+                echo "<b>Customer ID :</b> $customer_id<br>";
+                echo "<b>Name :</b> $first_name $last_name<br>";
+                echo "<b>Order Date :</b> $order_date";
+            } ?>
         </table>
 
         <div class='row justify-content-center mt-5'>

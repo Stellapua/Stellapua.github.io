@@ -20,7 +20,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5">
+    <div class="container-fluid mt-5 p-5">
         <div class="page-header text-center">
             <h1>Read Customer</h1>
         </div>
@@ -90,13 +90,14 @@ include 'session.php';
                         <td>Date Of Birth</td>
                         <td><?php echo htmlspecialchars($date_of_birth, ENT_QUOTES);  ?></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <a href='customer_read.php' class='btn btn-danger p-3'>Back to read customers</a>
-                        </td>
-                    </tr>
                 </table>
+
+                <div class='row justify-content-center mt-5'>
+                    <div class='col-auto'>
+                        <a href='customer_read.php' class='btn btn-danger p-3'>Back to read customers</a>
+                    </div>
+                </div>
+
             </div>
         </div>
 

@@ -32,7 +32,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5">
+    <div class="container-fluid mt-5 p-5">
         <div class="page-header text-center">
             <h1>Create Product</h1>
         </div>
@@ -65,10 +65,12 @@ include 'session.php';
                     $price = htmlspecialchars(strip_tags($_POST['price']));
                 }
 
-                $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
-                if (($_POST["promotion_price"]) > ($_POST['price'])) {
-                    $proErr = "Promotion price should be cheaper than original price *";
-                    $flag = true;
+                if (!empty($_POST["promotion_price"])) {
+                    $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
+                    if (($_POST["promotion_price"]) > ($_POST['price'])) {
+                        $proErr = "Promotion price should be cheaper than original price *";
+                        $flag = true;
+                    }
                 }
 
                 if (empty($_POST["manufacture_date"])) {
@@ -77,16 +79,15 @@ include 'session.php';
                 } else {
                     $manufacture_date = htmlspecialchars(strip_tags($_POST['manufacture_date']));
                 }
-                if (empty($_POST["expired_date"])) {
-                    $exErr = "Expired date is required *";
-                    $flag = true;
-                } else {
+
+                if (!empty($_POST["expired_date"])) {
                     $expired_date = htmlspecialchars(strip_tags($_POST['expired_date']));
-                    if (($_POST["expired_date"]) < ($_POST['manufacture_date'])) {
+                    if (($_POST['manufacture_date']) > ($_POST["expired_date"])) {
                         $exErr = "Expired date should be later than manufacture date *";
                         $flag = true;
                     }
                 }
+
 
                 if ($flag == false) {
                     // insert query

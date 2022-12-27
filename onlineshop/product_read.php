@@ -21,7 +21,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="page-header text-center mt-5 pt-5">
             <h1>Read Products</h1>
         </div>
@@ -45,7 +45,7 @@ include 'session.php';
         }
 
         // select all data
-        $query = "SELECT id, name, description, price FROM products ORDER BY id DESC";
+        $query = "SELECT id, name, description, price , promotion_price FROM products ORDER BY id DESC";
         $stmt = $con->prepare($query);
         $stmt->execute();
 
@@ -72,7 +72,8 @@ include 'session.php';
             echo "<th>ID</th>";
             echo "<th>Name</th>";
             echo "<th>Description</th>";
-            echo "<th>Price</th>";
+            echo "<th>Price (RM)</th>";
+            echo "<th>Promotion Price (RM)</th>";
             echo "<th>Action</th>";
             echo "</tr>";
 
@@ -86,8 +87,17 @@ include 'session.php';
                 echo "<tr>";
                 echo "<td>{$id}</td>";
                 echo "<td>{$name}</td>";
-                echo "<td>{$description}</td>";
-                echo "<td>{$price}</td>";
+                if (htmlspecialchars($description, ENT_QUOTES) == NULL) {
+                    echo "<td> " . "-" . "</td>";
+                } else {
+                    echo "<td> " . htmlspecialchars($description, ENT_QUOTES) . "</td>";
+                };
+                echo "<td class= \"text-end\" > " . number_format((float)$price, 2, '.', '') . "</td>";
+                if (htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) {
+                    echo "<td class= \"text-end\" > " . "-" . "</td>";
+                } else {
+                    echo "<td class= \"text-end\" > " . number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '') . "</td>";
+                };
                 echo "<td>";
                 // read one record
                 echo "<a href='product_read_one.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";

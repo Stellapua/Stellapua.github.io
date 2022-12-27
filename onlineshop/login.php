@@ -25,38 +25,53 @@ session_start();
 
 
     $useErr =  $pasErr = $staErr = "";
+    $flag = false;
 
     if ($_POST) {
 
         include 'config/database.php';
 
-        $username = htmlspecialchars(strip_tags($_POST['username']));
+        if (empty($_POST["username"])) {
+            $useErr = "Username is required *";
+            $flag = true;
+        } else {
+            $username = htmlspecialchars(strip_tags($_POST['username']));
+        }
 
-        $query = "SELECT password, account_status FROM customers WHERE username=:username";
-        $stmt = $con->prepare($query);
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
-        $num = $stmt->rowCount();
 
-        if ($num > 0) {
+        if (empty($_POST["password"])) {
+            $pasErr = "Password is required *";
+            $flag = true;
+        }
 
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($flag == false) {
 
-            $password = $row['password'];
-            $account_status = $row['account_status'];
+            $query = "SELECT password, account_status FROM customers WHERE username=:username";
+            $stmt = $con->prepare($query);
+            $stmt->bindParam(':username', $username);
+            $stmt->execute();
+            $num = $stmt->rowCount();
 
-            if ($password == md5($_POST['password'])) {
-                if ($account_status == "Active") {
-                    $_SESSION['user'] = $_POST['username'];
-                    header("Location: http://localhost/webdev/onlineshop/home.php");
+            if ($num > 0) {
+
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                $password = $row['password'];
+                $account_status = $row['account_status'];
+
+                if ($password == md5($_POST['password'])) {
+                    if ($account_status == "Active") {
+                        $_SESSION['user'] = $_POST['username'];
+                        header("Location: http://localhost/webdev/onlineshop/home.php");
+                    } else {
+                        $staErr = "Your Account is suspended *";
+                    }
                 } else {
-                    $staErr = "Your Account is suspended *";
+                    $pasErr = "Incorrect Password *";
                 }
             } else {
-                $pasErr = "Incorrect Password *";
+                $useErr = "User not found *";
             }
-        } else {
-            $useErr = "User not found *";
         }
     }
     ?>
@@ -64,10 +79,9 @@ session_start();
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="row justify-content-center mt-5">
+
             <main class="form-signin col-4 mt-4">
-
                 <h1 class="h3 mb-3 fw-normal text-center">SIGN IN</h1>
-
                 <?php
                 if (isset($_GET["action"])) {
                     if ($_GET["action"] == "denied") {
@@ -101,7 +115,9 @@ session_start();
                 </div>
 
                 <button class="w-100 btn btn-lg btn-success mt-5 mb-5" type="sign in">Sign in</button>
+                <p class="text-center text-muted">Copyrights &copy; 2022 Online Shop. All rights reserved.</p>
             </main>
+
         </div>
     </form>
 

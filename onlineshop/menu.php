@@ -15,28 +15,20 @@
                         <a class="nav-link " href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="product_create.php">Create Product</a>
+                        <a class="nav-link " href="product_create.php">Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="product_read.php">Read Products</a>
+                        <a class="nav-link " href="create_customer.php">Customer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="create_customer.php">Create Customer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="customer_read.php">Read Customers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="create_order.php">Create Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " href="order_read.php">Order List</a>
+                        <a class="nav-link " href="create_order.php">Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="contact_us.php">Contact Us</a>
                     </li>
+
                     <li class="col text-center">
-                        <a class="btn btn-danger mt-2" href="logout.php" role="button">LOGOUT</a>
+                        <a class="btn btn-danger mt-2" href="logout.php" role="button">LOG OUT</a>
                     </li>
                 </ul>
             </div>

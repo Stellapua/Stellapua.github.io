@@ -4,7 +4,7 @@
 $host = "localhost";
 $db_name = "onlineshop";
 $username = "onlineshop";
-$password = "SIO!XBnPsRNN2[kk";
+$password = "cMdy7perU-[RSzI!";
 
 try {
     $con = new PDO("mysql:host={$host};dbname={$db_name}", $username, $password);

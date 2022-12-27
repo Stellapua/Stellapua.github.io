@@ -30,7 +30,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container ">
+    <div class="container-fluid">
         <div class="page-header text-center mt-5 pt-5">
             <h1>Update Products</h1>
         </div>
@@ -108,11 +108,12 @@ include 'session.php';
 
                 $manufacture_date = htmlspecialchars(strip_tags($_POST['manufacture_date']));
 
-                $expired_date = htmlspecialchars(strip_tags($_POST['expired_date']));
-
-                if (($_POST["expired_date"]) < ($_POST['manufacture_date'])) {
-                    $exErr = "Expired date should be later than manufacture date *";
-                    $flag = true;
+                if (!empty(htmlspecialchars(strip_tags($_POST['expired_date'])))) {
+                    $expired_date = htmlspecialchars(strip_tags($_POST['expired_date']));
+                    if (($_POST["expired_date"]) < ($_POST['manufacture_date'])) {
+                        $exErr = "Expired date should be later than manufacture date *";
+                        $flag = true;
+                    }
                 }
 
                 if ($flag == false) {

@@ -32,7 +32,7 @@ include 'session.php';
     <!-- container -->
     <div class="container-fluid mt-5 pt-5">
         <div class="page-header text-center">
-            <h1>Update Customers</h1>
+            <h1>Update Order</h1>
         </div>
 
         <!-- PHP read record by ID will be here -->
@@ -43,49 +43,31 @@ include 'session.php';
 
         // get passed parameter value, in this case, the record ID
         // isset() is a PHP function used to verify if a value is there or not
-        $customer_id = isset($_GET['customer_id']) ? $_GET['customer_id'] : die('ERROR: Record Customer ID not found.');
+        $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: Record Customer ID not found.');
 
         // read current record's data
         try {
             // prepare select query
-            $query = "SELECT customer_id, username, password, first_name, last_name, gender, date_of_birth FROM customers WHERE customer_id = ? LIMIT 0,1";
+            $query = "SELECT customer_id, username, password, first_name, last_name, gender, date_of_birth FROM customers WHERE order_id = ? LIMIT 0,1";
             $stmt = $con->prepare($query);
-
-            // this is the first question mark
-            $stmt->bindParam(1, $customer_id);
-            // execute our query
+            $stmt->bindParam(1, $order_id);
             $stmt->execute();
-            // store retrieved row to a variable
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // values to fill up our form
             $username = $row['username'];
-            $password = $row['password'];
-            $first_name = $row['first_name'];
-            $last_name = $row['last_name'];
-            $gender = $row['gender'];
-            $date_of_birth = $row['date_of_birth'];
         }
-
         // show error
         catch (PDOException $exception) {
             die('ERROR: ' . $exception->getMessage());
         }
         ?>
 
-        <!-- HTML form to update record will be here -->
-        <!-- PHP post to update record will be here -->
-
         <?php
-        $pasErr = $firErr = $lasErr = $genErr = $dateErr = $conErr = $oldErr =  "";
+        $pasErr = "";
         $flag = false;
 
-        // check if form was submitted
         if ($_POST) {
             try {
-
-                // posted values
-
                 if (!empty($_POST["password"]) or !empty($_POST["old_password"]) or !empty($_POST["comfirm_password"])) {
 
                     if (md5($_POST['old_password']) == $password) {
@@ -170,7 +152,7 @@ include 'session.php';
         } ?>
 
         <!--we have our html form here where new record information can be updated-->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?customer_id={$customer_id}"); ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?customer_id={$order_id}"); ?>" method="post">
             <div class='row justify-content-center mt-1'>
                 <div class='col-auto'>
                     <table class='table table-hover table-responsive table-bordered'>
@@ -189,61 +171,10 @@ include 'session.php';
                             </td>
                         </tr>
                         <tr>
-                            <td>New Password</td>
-                            <td><span class="error"><?php echo $pasErr; ?></span>
-                                <input type='password' name='password' class='form-control' value='<?php if (isset($_POST['password'])) {
-                                                                                                        echo $_POST['password'];
-                                                                                                    } ?>' />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Comfirm Password</td>
-                            <td><span class="error"><?php echo $conErr; ?></span>
-                                <input type='password' name='comfirm_password' class='form-control' value='<?php if (isset($_POST['comfirm_password'])) {
-                                                                                                                echo $_POST['comfirm_password'];
-                                                                                                            } ?>' />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>First Name</td>
-                            <td><span class="error"><?php echo $firErr; ?></span>
-                                <input type='text' name='first_name' value="<?php echo htmlspecialchars($first_name, ENT_QUOTES);  ?>" class='form-control' />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Last Name</td>
-                            <td><span class="error"><?php echo $lasErr; ?></span>
-                                <input type='text' name='last_name' value="<?php echo htmlspecialchars($last_name, ENT_QUOTES);  ?>" class='form-control' />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Gender</td>
-                            <td>
-                                <input type="radio" name="gender" class="form-check-label" value="Male" <?php if ($gender == 'Male') {
-                                                                                                            echo "checked";
-                                                                                                        } ?>>
-                                <label for="Male">
-                                    Male
-                                </label>
-                                <input type="radio" name="gender" class="form-check-label" value="Female" <?php if ($gender == 'Female') {
-                                                                                                                echo "checked";
-                                                                                                            } ?>>
-                                <label for="Female">
-                                    Female
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Date Of Birth</td>
-                            <td><span class="error"><?php echo $dateErr; ?></span>
-                                <input type='date' name='date_of_birth' value="<?php echo htmlspecialchars($date_of_birth, ENT_QUOTES);  ?>" class='form-control' />
-                            </td>
-                        </tr>
-                        <tr>
                             <td></td>
                             <td>
                                 <input type='submit' value='Save Changes' class='btn btn-primary' />
-                                <a href='customer_read.php' class='btn btn-danger'>Back to read customers</a>
+                                <a href='order_read.php' class='btn btn-danger'>Back to order list</a>
                             </td>
                         </tr>
                     </table>

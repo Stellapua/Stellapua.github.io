@@ -30,7 +30,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5 mb-4">
+    <div class="container-fluid mt-5 p-5 mb-4">
         <div class="page-header text-center mb-4">
             <h1>Create Order</h1>
         </div>
@@ -226,6 +226,7 @@ include 'session.php';
                 <input type="button" value="Add More" class="add_one btn btn-warning" />
                 <input type="button" value="Delete" class="delete_one btn btn-warning" />
                 <input type='submit' value='Order' class='btn btn-success' />
+                <a href='order_read.php' class='btn btn-danger'>Back to order list</a>
             </div>
         </form>
 

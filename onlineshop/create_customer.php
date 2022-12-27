@@ -30,7 +30,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 p-5">
+    <div class="container-fluid mt-5 p-5">
         <div class="page-header text-center">
             <h1>Create Customer</h1>
         </div>

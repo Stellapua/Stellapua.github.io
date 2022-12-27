@@ -20,7 +20,7 @@ include 'session.php';
     ?>
 
     <!-- container -->
-    <div class="container mt-5 pt-5">
+    <div class="container-fluid mt-5 pt-5">
         <div class="page-header text-center">
             <h1>Read Customers</h1>
         </div>
@@ -74,6 +74,7 @@ include 'session.php';
             echo "<th>Last name</th>";
             echo "<th>Gender</th>";
             echo "<th>Date Of Birth</th>";
+            echo "<th>Action</th>";
             echo "</tr>";
 
             // table body will be here
