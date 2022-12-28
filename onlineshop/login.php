@@ -115,7 +115,7 @@ session_start();
                 </div>
 
                 <button class="w-100 btn btn-lg btn-success mt-5 mb-5" type="sign in">Sign in</button>
-                <p class="text-center text-muted">Copyrights &copy; 2022 Online Shop. All rights reserved.</p>
+                <p class="text-center text-muted">Copyrights &copy; 2022 The Plant Room. All rights reserved.</p>
             </main>
 
         </div>

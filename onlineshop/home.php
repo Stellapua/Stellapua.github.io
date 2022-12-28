@@ -63,7 +63,7 @@ include 'session.php';
         <div class="row align-item-center ">
             <div class="col-12">
                 <h3>About Us</h3>
-                <p>Established since 2002 in Cheras, we has evolved into becoming a full range of landscaping plants nursery, grower, trader and wholesaler in Malaysia. Our garden plants nursery nurture & grow a variety of tropical palms, trees, bamboos, shrubs and ground covers. With years of experiences in plant nurturing, plant nursery management and landscaping business, we always strive to provide quality plants and services to our valuable customers.</p>
+                <p>The Plant Room are established since 2002 in Cheras, we has evolved into becoming a full range of landscaping plants nursery, grower, trader and wholesaler in Malaysia. Our garden plants nursery nurture & grow a variety of tropical palms, trees, bamboos, shrubs and ground covers. With years of experiences in plant nurturing, plant nursery management and landscaping business, we always strive to provide quality plants and services to our valuable customers.</p>
             </div>
         </div>
     </div>

@@ -1,12 +1,12 @@
 <nav class="navbar navbar-dark bg-success fixed-top ">
     <div class="container-fluid">
-        <a class="navbar-brand " href="#">Online Shop</a>
+        <a class="navbar-brand " href="#">The Plant Room</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="offcanvas offcanvas-end text-bg-success " tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Online Shop</h5>
+                <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">The Plant Room</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
