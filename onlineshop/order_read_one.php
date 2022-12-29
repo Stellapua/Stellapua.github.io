@@ -75,7 +75,7 @@ include 'session.php';
                     <td class="text-end"><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
                 </tr>
             <?php
-                echo "<b>Customer ID :</b> $customer_id<br>";
+                echo "<b>Order ID :</b> $order_id<br>";
                 echo "<b>Name :</b> $first_name $last_name<br>";
                 echo "<b>Order Date :</b> $order_date";
             } ?>
