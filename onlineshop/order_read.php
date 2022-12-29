@@ -73,9 +73,9 @@ include 'session.php';
             echo "<tr>";
             echo "<th>Order ID</th>";
             echo "<th>Customer ID</th>";
-            echo "<th>Name</th>";
-            echo "<th>Total Order Amount (RM)</th>";
-            echo "<th>Order Date & Time</th>";
+            echo "<th>Customer Name</th>";
+            echo "<th>Purchase Amount (RM)</th>";
+            echo "<th>Transaction Date</th>";
             echo "<th>Action</th>";
             echo "</tr>";
 
@@ -95,7 +95,7 @@ include 'session.php';
                 echo "<td>";
                 // read one record
                 echo "<a href='order_read_one.php?order_id={$order_id}' class='btn btn-info m-r-1em'>Read</a>";
-                echo "<a href='order_update.php?id={$order_id}' class='btn btn-primary m-r-1em'>Edit</a>";
+                echo "<a href='order_update.php?order_id={$order_id}' class='btn btn-primary m-r-1em'>Edit</a>";
                 echo "<a href='#' onclick='delete_user({$order_id});'  class='btn btn-danger'>Delete</a>";
                 echo "</td>";
                 echo "</tr>";

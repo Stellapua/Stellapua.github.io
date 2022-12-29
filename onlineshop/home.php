@@ -26,8 +26,49 @@ include 'session.php';
 
     <?php
     include 'menu.php';
-    ?>
 
+    include 'config/database.php';
+
+    $query = "SELECT * FROM customers";
+    $stmt = $con->prepare($query);
+    $stmt->execute();
+    $total_customer = $stmt->rowCount();
+
+    $query = "SELECT * FROM products";
+    $stmt = $con->prepare($query);
+    $stmt->execute();
+    $total_product = $stmt->rowCount();
+
+    $query = "SELECT * FROM order_summary";
+    $stmt = $con->prepare($query);
+    $stmt->execute();
+    $total_order = $stmt->rowCount();
+
+    //latest order
+    $query = "SELECT first_name, last_name, total_amount, order_date FROM order_summary o 
+    INNER JOIN customers c ON c.customer_id = o.customer_id
+    ORDER BY order_id DESC LIMIT 0,1";
+    $stmt = $con->prepare($query);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
+    $total_amount = $row['total_amount'];
+    $order_date = $row['order_date'];
+
+    // highest purchased amount
+    $query = "SELECT first_name, last_name, total_amount, order_date FROM order_summary o 
+    INNER JOIN customers c ON c.customer_id = o.customer_id
+    ORDER BY total_amount DESC LIMIT 0,1";
+    $stmt = $con->prepare($query);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $first_name2 = $row['first_name'];
+    $last_name2 = $row['last_name'];
+    $total_amount2 = $row['total_amount'];
+    $order_date2 = $row['order_date'];
+
+    ?>
     <div class="container-fluid text-center p-5 mt-5 ">
         <div class="row align-item-center ">
             <div class="col-12">
@@ -71,94 +112,138 @@ include 'session.php';
     <div class="container-fluid text-center p-5 bg-success">
     </div>
 
-    <div class="container-fluid text-center p-5 mt-5 ">
+    <div class="container-fluid text-center p-5">
         <div class="container mx-auto mt-4">
-            <div class="row">
-                <h3>Our Products</h3>
+
+            <h3>Dashboard</h3>
+
+            <div class="row mt-4 mb-5">
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="Images/tulip.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Tulip</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Best Selling Top 1</h6>
-                            <p class="card-text">Tulips are a genus of spring-blooming perennial herbaceous bulbiferous geophytes.</p>
-                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                            <h5 class="card-title">Total Products</h5>
+                            <p class="card-text"><?php echo $total_product; ?></p>
+                            <a class="btn btn-warning m-2" href="product_read.php" role="button">CHECK LIST</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="Images/rose.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Rose</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Best Selling Top 2</h6>
-                            <p class="card-text">A rose is either a woody perennial flowering plant of the genus Rosa, in the family Rosaceae.</p>
-                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                            <h5 class="card-title">Total Customers</h5>
+                            <p class="card-text"><?php echo $total_customer; ?></p>
+                            <a class="btn btn-warning m-2" href="customer_read.php" role="button">CHECK LIST</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card" style="width: 18rem;">
-                        <img src="Images/lily.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Lily</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Best Selling Top 3</h6>
-                            <p class="card-text">Lilium is a genus of herbaceous flowering plants growing from bulbs.</p>
-                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                            <h5 class="card-title">Total Orders</h5>
+                            <p class="card-text"><?php echo $total_order; ?></p>
+                            <a class="btn btn-warning m-2" href="order_read.php" role="button">CHECK LIST</a>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="container mx-auto mt-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="Images/coconut.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Coconut Tree</h5>
-                            <p class="card-text">Cocos nucifera is a large palm, growing up to 30 metres (100 feet) tall.</p>
-                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
+            <table class='table table-hover table-responsive table-bordered text-center mt-3 mb-5'>
+                <tr>
+                    <th colspan="3" text-start>Latest order</th>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Transaction Date</th>
+                    <th>Purchase Amount</th>
+                </tr>
+                <tr>
+                    <td><?php echo $first_name;
+                        echo $last_name; ?></td>
+                    <td><?php echo $order_date; ?></td>
+                    <td><?php echo $total_amount; ?></td>
+                </tr>
+            </table>
+
+            <table class='table table-hover table-responsive table-bordered text-center mt-3 mb-5'>
+                <tr>
+                    <th colspan="3" text-start>Highest purchased amount</th>
+                </tr>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Transaction Date</th>
+                    <th>Purchased Amount</th>
+                </tr>
+                <tr>
+                    <td><?php echo $first_name2;
+                        echo $last_name2; ?></td>
+                    <td><?php echo $order_date2; ?></td>
+                    <td><?php echo $total_amount2; ?></td>
+                </tr>
+            </table>
+
+            <?php
+            //top6 best selling
+            $query = "SELECT o.product_id, SUM(o.quantity) as totalquantity ,p.name, p.description FROM order_detail o
+            INNER JOIN products p ON o.product_id = p.id
+            GROUP BY o.product_id
+            ORDER BY totalquantity DESC LIMIT 6";
+            $stmt = $con->prepare($query);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            ?>
+
+            <h4>Top 6 best selling products</h4>
+
+            <div class="row mt-4 mb-5">
+                <?php if ($num > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row); ?>
+
+                        <div class="col-md-4 mt-3">
+                            <div class="card" style="width: 18rem;">
+                                <!-- <img src="Images/tulip.jpg" class="card-img-top" alt="..."> -->
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $name; ?></h5>
+                                    <h6 class="card-sub-title text-muted"><?php echo "quantity: " . $totalquantity; ?></h6>
+                                    <p class="card-text"><?php echo $description; ?></p>
+                                    <a class="btn btn-warning m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="Images/hibiscus.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Hibiscus</h5>
-                            <p class="card-text">Hibiscus is a genus of flowering plants in the mallow family, Malvaceae.</p>
-                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card" style="width: 18rem;">
-                        <img src="Images/palm.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Palm Tree</h5>
-                            <p class="card-text">A family of perennial flowering plants in the monocot order Arecales. .</p>
-                            <a class="btn btn-success m-2" href="create_order.php" role="button">BUY IT NOW</a>
-                        </div>
-                    </div>
-                </div>
+                <?php }
+                } ?>
             </div>
-        </div>
-    </div>
 
-    <div class="container-fluid text-center p-5 bg-success">
-    </div>
+            <?php
+            //product never purchased
+            $query = "SELECT p.name, p.description FROM products p
+            LEFT JOIN order_detail o ON o.product_id = p.id
+            WHERE o.product_id iS NULL LIMIT 3";
+            $stmt = $con->prepare($query);
+            $stmt->execute();
+            $num = $stmt->rowCount();
+            ?>
 
-    <div class="container-fluid text-center p-5 mt-5 ">
-        <div class="row align-item-center">
-            <div class="col-12">
-                <h2>WANT TO SELL</h2>
-                <h5>You can also sell your plant to us as a busniness.</h5>
+            <h4>Products that never purchase by any customer</h4>
+
+            <div class="row mt-4 mb-5">
+                <?php if ($num > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row); ?>
+
+                        <div class="col-md-4 mt-3">
+                            <div class="card" style="width: 18rem;">
+                                <!-- <img src="Images/tulip.jpg" class="card-img-top" alt="..."> -->
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $name; ?></h5>
+                                    <p class="card-text"><?php echo $description; ?></p>
+                                    <a class="btn btn-warning m-2" href="create_order.php" role="button">BUY IT NOW</a>
+                                </div>
+                            </div>
+                        </div>
+                <?php }
+                } ?>
             </div>
-        </div>
-        <div class="col text-center">
-            <a class="btn btn-outline-success m-2" href="contact_us.php" role="button">CONTACT</a>
         </div>
     </div>
 

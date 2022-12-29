@@ -15,13 +15,13 @@
                         <a class="nav-link " href="home.php">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="product_create.php">Product</a>
+                        <a class="nav-link " href="product_read.php">Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="create_customer.php">Customer</a>
+                        <a class="nav-link " href="customer_read.php">Customer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="create_order.php">Order</a>
+                        <a class="nav-link " href="order_read.php">Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="contact_us.php">Contact Us</a>

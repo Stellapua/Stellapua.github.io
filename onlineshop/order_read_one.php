@@ -71,7 +71,7 @@ include 'session.php';
                     </tr>
                 <?php } ?>
                 <tr>
-                    <th colspan="4">Total (RM)</th>
+                    <th colspan="4">Purchase Amount (RM)</th>
                     <td class="text-end"><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
                 </tr>
             <?php
