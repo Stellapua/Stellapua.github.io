@@ -120,7 +120,6 @@ include 'session.php';
         $num = $stmt->rowCount();
 
         if ($num > 0) {
-            //STEP2:Check how many row, pre submit de
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
                 $product_id_[] = $product_id;
@@ -134,7 +133,9 @@ include 'session.php';
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?order_id={$order_id}"); ?>" method="post">
 
-            <?php for ($x = 0; $x < count($product_id_); $x++) {
+
+            <?php // show purchased products
+            for ($x = 0; $x < count($product_id_); $x++) {
                 $query = "SELECT id, name, price, promotion_price FROM products ORDER BY id DESC";
                 $stmt = $con->prepare($query);
                 $stmt->execute();
