@@ -33,6 +33,7 @@ include 'session.php';
             $product = $_POST["product"];
             $quantity = $_POST["quantity"];
             $order_detail_id = $_POST["order_detail_id"];
+            $order_id = isset($_GET['order_id']) ? $_GET['order_id'] : die('ERROR: Record ID not found.');
 
             $total_amount = 0;
 
@@ -55,11 +56,8 @@ include 'session.php';
                 $total_amount = $total_amount + ((float)$price * (int)$quantity[$x]);
             }
 
-            $query = "UPDATE order_summary SET order_date=:order_date, total_amount=:total_amount WHERE order_id=:order_id";
+            $query = "UPDATE order_summary SET total_amount=:total_amount WHERE order_id=:order_id";
             $stmt = $con->prepare($query);
-            date_default_timezone_set("Asia/Kuala_Lumpur");
-            $order_date = date('Y-m-d H:i:s');
-            $stmt->bindParam(':order_date', $order_date);
             $stmt->bindParam(':total_amount', $total_amount);
             $stmt->bindParam(':order_id', $order_id);
 
