@@ -73,9 +73,6 @@ include 'session.php';
         }
         ?>
 
-        <!-- HTML form to update record will be here -->
-        <!-- PHP post to update record will be here -->
-
         <?php
         $pasErr = $firErr = $lasErr = $genErr = $dateErr = $conErr = $oldErr =  "";
         $flag = false;
