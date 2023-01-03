@@ -168,13 +168,13 @@ include 'session.php';
                             <td><textarea name='description' class='form-control'><?php echo htmlspecialchars($description, ENT_QUOTES);  ?></textarea></td>
                         </tr>
                         <tr>
-                            <td>Price</td>
+                            <td>Price (RM)</td>
                             <td><span class="error"><?php echo $priErr; ?></span>
                                 <input type='text' name='price' value="<?php echo number_format((float)htmlspecialchars($price, ENT_QUOTES), 2, '.', '');  ?>" class='form-control' />
                             </td>
                         </tr>
                         <tr>
-                            <td>Promotion Price</td>
+                            <td>Promotion Price (RM)</td>
                             <td><span class="error"><?php echo $proErr; ?></span>
                                 <input type='text' name='promotion_price' value="<?php if (htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) {
                                                                                         echo "-";
