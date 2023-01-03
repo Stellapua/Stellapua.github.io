@@ -93,7 +93,7 @@ include 'session.php';
                     echo "<td> " . htmlspecialchars($description, ENT_QUOTES) . "</td>";
                 };
                 echo "<td class= \"text-end\" > " . number_format((float)$price, 2, '.', '') . "</td>";
-                if (htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) {
+                if ((htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) or (htmlspecialchars($promotion_price, ENT_QUOTES) == "0.00")) {
                     echo "<td class= \"text-end\" > " . "-" . "</td>";
                 } else {
                     echo "<td class= \"text-end\" > " . number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '') . "</td>";

@@ -38,7 +38,7 @@ include 'session.php';
         // read current record's data
         try {
             // prepare select query
-            $query = "SELECT customer_id, username, first_name, last_name, gender, date_of_birth FROM customers WHERE customer_id = ? LIMIT 0,1";
+            $query = "SELECT customer_id, username, first_name, last_name, gender, date_of_birth, registration_date_time, account_status FROM customers WHERE customer_id = ? LIMIT 0,1";
             $stmt = $con->prepare($query);
 
             // this is the first question mark
@@ -56,6 +56,8 @@ include 'session.php';
             $last_name = $row['last_name'];
             $gender = $row['gender'];
             $date_of_birth = $row['date_of_birth'];
+            $registration_date_time = $row['registration_date_time'];
+            $account_status = $row['account_status'];
         }
 
         // show error
@@ -86,9 +88,16 @@ include 'session.php';
                         <td><?php echo htmlspecialchars($gender, ENT_QUOTES);  ?></td>
                     </tr>
                     <tr>
-                    <tr>
                         <td>Date Of Birth</td>
                         <td><?php echo htmlspecialchars($date_of_birth, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <td>Registration Date & Time</td>
+                        <td><?php echo htmlspecialchars($registration_date_time, ENT_QUOTES);  ?></td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td><?php echo htmlspecialchars($account_status, ENT_QUOTES);  ?></td>
                     </tr>
                 </table>
 

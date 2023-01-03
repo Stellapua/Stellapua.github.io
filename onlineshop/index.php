@@ -62,7 +62,7 @@ session_start();
                 if ($password == md5($_POST['password'])) {
                     if ($account_status == "Active") {
                         $_SESSION['user'] = $_POST['username'];
-                        header("Location: http://localhost/webdev/onlineshop/home.php");
+                        header("Location: home.php");
                     } else {
                         $staErr = "Your Account is suspended *";
                     }

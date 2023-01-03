@@ -81,13 +81,13 @@ include 'session.php';
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="Images/plant7.jpg" class="d-block w-100" alt="p1">
+                <img src="images/plant7.jpg" class="d-block w-100" alt="p1">
             </div>
             <div class="carousel-item">
-                <img src="Images/plant3.jpg" class="d-block w-100" alt="p2">
+                <img src="images/plant3.jpg" class="d-block w-100" alt="p2">
             </div>
             <div class="carousel-item">
-                <img src="Images/plant6.jpg" class="d-block w-100" alt="p3">
+                <img src="images/plant6.jpg" class="d-block w-100" alt="p3">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -201,7 +201,7 @@ include 'session.php';
 
                         <div class="col-md-4 mt-3">
                             <div class="card" style="width: 18rem;">
-                                <!-- <img src="Images/tulip.jpg" class="card-img-top" alt="..."> -->
+                                <!-- <img src="images/tulip.jpg" class="card-img-top" alt="..."> -->
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $name; ?></h5>
                                     <h6 class="card-sub-title text-muted"><?php echo "quantity: " . $totalquantity; ?></h6>
@@ -233,7 +233,7 @@ include 'session.php';
 
                         <div class="col-md-4 mt-3">
                             <div class="card" style="width: 18rem;">
-                                <!-- <img src="Images/tulip.jpg" class="card-img-top" alt="..."> -->
+                                <!-- <img src="images/tulip.jpg" class="card-img-top" alt="..."> -->
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $name; ?></h5>
                                     <p class="card-text"><?php echo $description; ?></p>

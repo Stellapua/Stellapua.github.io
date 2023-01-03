@@ -100,10 +100,18 @@ include 'session.php';
                     $price = htmlspecialchars(strip_tags($_POST['price']));
                 }
 
-                $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
-                if (($_POST["promotion_price"]) > ($_POST['price'])) {
-                    $proErr = "Promotion price should be cheaper than original price *";
-                    $flag = true;
+                if (!empty($_POST["promotion_price"])) {
+                    $promotion_price = htmlspecialchars(strip_tags($_POST['promotion_price']));
+
+                    if ($_POST["promotion_price"] == "-") {
+                        $promotion_price = NULL;
+                    }
+                    if (($_POST["promotion_price"]) > ($_POST['price'])) {
+                        $proErr = "Promotion price should be cheaper than original price *";
+                        $flag = true;
+                    }
+                } else {
+                    $promotion_price = NULL;
                 }
 
                 $manufacture_date = htmlspecialchars(strip_tags($_POST['manufacture_date']));
@@ -117,9 +125,6 @@ include 'session.php';
                 }
 
                 if ($flag == false) {
-                    // write update query
-                    // in this case, it seemed like we have so many fields to pass and
-                    // it is better to label them and not use question marks
                     $query = "UPDATE products SET name=:name, description=:description, price=:price, promotion_price=:promotion_price, manufacture_date=:manufacture_date, expired_date=:expired_date WHERE id = :id";
                     // prepare query for excecution
                     $stmt = $con->prepare($query);
@@ -165,13 +170,17 @@ include 'session.php';
                         <tr>
                             <td>Price</td>
                             <td><span class="error"><?php echo $priErr; ?></span>
-                                <input type='text' name='price' value="<?php echo htmlspecialchars($price, ENT_QUOTES);  ?>" class='form-control' />
+                                <input type='text' name='price' value="<?php echo number_format((float)htmlspecialchars($price, ENT_QUOTES), 2, '.', '');  ?>" class='form-control' />
                             </td>
                         </tr>
                         <tr>
                             <td>Promotion Price</td>
                             <td><span class="error"><?php echo $proErr; ?></span>
-                                <input type='text' name='promotion_price' value="<?php echo htmlspecialchars($promotion_price, ENT_QUOTES);  ?>" class='form-control' />
+                                <input type='text' name='promotion_price' value="<?php if (htmlspecialchars($promotion_price, ENT_QUOTES) == NULL) {
+                                                                                        echo "-";
+                                                                                    } else {
+                                                                                        echo number_format((float)htmlspecialchars($promotion_price, ENT_QUOTES), 2, '.', '');
+                                                                                    }; ?>" class='form-control' />
                             </td>
                         </tr>
                         <tr>
