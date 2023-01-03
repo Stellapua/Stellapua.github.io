@@ -28,11 +28,8 @@ include 'session.php';
         <!-- PHP read one record will be here -->
         <?php
 
-        //include database connection
         include 'config/database.php';
 
-        // get passed parameter value, in this case, the record ID
-        // isset() is a PHP function used to verify if a value is there or not
         $customer_id = isset($_GET['customer_id']) ? $_GET['customer_id'] : die('ERROR: Record Customer ID not found.');
 
         // read current record's data
@@ -40,14 +37,8 @@ include 'session.php';
             // prepare select query
             $query = "SELECT customer_id, username, first_name, last_name, gender, date_of_birth, registration_date_time, account_status FROM customers WHERE customer_id = ? LIMIT 0,1";
             $stmt = $con->prepare($query);
-
-            // this is the first question mark
             $stmt->bindParam(1, $customer_id);
-
-            // execute our query
             $stmt->execute();
-
-            // store retrieved row to a variable
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // values to fill up our form
@@ -66,8 +57,6 @@ include 'session.php';
         }
         ?>
 
-        <!-- HTML read one record table will be here -->
-        <!--we have our html table here where the record will be displayed-->
         <div class='row justify-content-center mt-5'>
             <div class='col-auto'>
                 <table class='table table-hover table-responsive table-bordered text-center'>

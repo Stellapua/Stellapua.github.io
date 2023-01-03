@@ -77,13 +77,10 @@ include 'session.php';
             echo "<th>Action</th>";
             echo "</tr>";
 
-            // table body will be here
-            // retrieve our table contents
+
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                // extract row
-                // this will make $row['firstname'] to just $firstname only
+
                 extract($row);
-                // creating new table row per record
                 echo "<tr>";
                 echo "<td>{$customer_id}</td>";
                 echo "<td>{$username}</td>";

@@ -201,7 +201,6 @@ include 'session.php';
 
                         <div class="col-md-4 mt-3">
                             <div class="card" style="width: 18rem;">
-                                <!-- <img src="images/tulip.jpg" class="card-img-top" alt="..."> -->
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $name; ?></h5>
                                     <h6 class="card-sub-title text-muted"><?php echo "quantity: " . $totalquantity; ?></h6>
@@ -233,7 +232,6 @@ include 'session.php';
 
                         <div class="col-md-4 mt-3">
                             <div class="card" style="width: 18rem;">
-                                <!-- <img src="images/tulip.jpg" class="card-img-top" alt="..."> -->
                                 <div class="card-body">
                                     <h5 class="card-title"><?php echo $name; ?></h5>
                                     <p class="card-text"><?php echo $description; ?></p>
