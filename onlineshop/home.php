@@ -154,7 +154,7 @@ include 'session.php';
                 <tr>
                     <th>Customer Name</th>
                     <th>Transaction Date</th>
-                    <th>Purchase Amount</th>
+                    <th>Purchase Amount (RM)</th>
                 </tr>
                 <tr>
                     <td><?php echo $first_name;
@@ -171,7 +171,7 @@ include 'session.php';
                 <tr>
                     <th>Customer Name</th>
                     <th>Transaction Date</th>
-                    <th>Purchased Amount</th>
+                    <th>Purchased Amount (RM)</th>
                 </tr>
                 <tr>
                     <td><?php echo $first_name2;
