@@ -109,6 +109,7 @@ include 'session.php';
                         $stmt->bindParam(':quantity', $quantity[$x]);
                         $stmt->bindParam(':order_detail_id', $order_detail_id[$x]);
                         $stmt->bindParam(':price_each', $price_each);
+                        $stmt->execute();
                     }
                     echo "<div class='alert alert-success'>Record was updated.</div>";
                 } else {
