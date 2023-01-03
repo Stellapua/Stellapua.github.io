@@ -160,7 +160,7 @@ include 'session.php';
                     <td><?php echo $first_name;
                         echo $last_name; ?></td>
                     <td><?php echo $order_date; ?></td>
-                    <td><?php echo $total_amount; ?></td>
+                    <td><?php echo number_format((float)htmlspecialchars($total_amount, ENT_QUOTES), 2, '.', ''); ?></td>
                 </tr>
             </table>
 
@@ -177,7 +177,7 @@ include 'session.php';
                     <td><?php echo $first_name2;
                         echo $last_name2; ?></td>
                     <td><?php echo $order_date2; ?></td>
-                    <td><?php echo $total_amount2; ?></td>
+                    <td><?php echo number_format((float)htmlspecialchars($total_amount2, ENT_QUOTES), 2, '.', ''); ?></td>
                 </tr>
             </table>
 
